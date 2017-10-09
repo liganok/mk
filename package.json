@@ -1,6 +1,7 @@
 {
   "name": "conduit-node",
   "version": "1.0.0",
+  "private": true,  
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -19,7 +20,7 @@
     "dotenv": "2.0.0",
     "ejs": "2.4.1",
     "errorhandler": "1.4.3",
-    "express": "4.13.4",
+    "express": "4.15.4",
     "express-jwt": "3.3.0",
     "express-session": "1.13.0",
     "jsonwebtoken": "7.1.9",
