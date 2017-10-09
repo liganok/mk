@@ -6074,7 +6074,7 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-scripts@1.0.14:
+react-scripts@^1.0.14:
   version "1.0.14"
   resolved "http://registry.npm.taobao.org/react-scripts/download/react-scripts-1.0.14.tgz#70fe76c9beb67b136b953e875bdfe4ad78d410d1"
   dependencies:
