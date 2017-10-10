@@ -14,8 +14,8 @@ function Login (props) {
 
   return (
     <Grid container justify="center">
-      <Grid item xs={11}>
-        <Auth tabIndex={0} style={styles.root} />
+      <Grid item xs={11} style={styles.root}>
+        <Auth tabIndex={0} />
       </Grid>
     </Grid>
   )
