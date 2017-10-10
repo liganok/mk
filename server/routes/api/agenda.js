@@ -47,7 +47,8 @@ router.post('/', auth.required, async function (req, res, next) {
 
   try {
     let user = await User.findById(req.payload.id)
-    if (typeof user._id) {
+    console.log(user,user._id)
+    if (typeof user._id==='undefined') {
       return res.json({
         status: 400,
         type: 'ERROR_GET_USER',

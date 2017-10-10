@@ -2,10 +2,11 @@
 
 import superagentPromise from 'superagent-promise'
 import _superagent from 'superagent'
+const PORT = process.env.PORT || 3001;
 
 const superagent = superagentPromise(_superagent, global.Promise)
 
-const API_ROOT = 'http://localhost:3001/api'
+const API_ROOT = `/api`
 
 const encode = encodeURIComponent
 const responseBody = res => res.body
