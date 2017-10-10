@@ -81,7 +81,7 @@ function AppHeader (props) {
 
   return (
     <div>
-      <AppBar position={position} style={styles.appBar}>
+      <AppBar position={position}>
         <Toolbar>
           <IconButton
             color="contrast" aria-label="Menu"
