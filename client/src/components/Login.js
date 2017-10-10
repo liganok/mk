@@ -7,14 +7,16 @@ function Login (props) {
   const styles = {
     root: {
       marginTop: '20vh',
-      width: 400,
+      maxWidth: 400,
       height: 200
     },
   }
 
   return (
     <Grid container justify="center">
-      <Auth tabIndex={0} style={styles.root}/>
+      <Grid item xs={11}>
+        <Auth tabIndex={0} style={styles.root} />
+      </Grid>
     </Grid>
   )
 }

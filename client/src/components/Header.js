@@ -136,7 +136,7 @@ class Header extends React.Component {
             onActionToggle={this.props.onActionToggle}
           />
 
-          <Grid style={{width: 300, paddingLeft: 10}}>
+          <Grid style={{width: 250, paddingLeft: 10}}>
             <SLink to="/agenda">
               <ListItem button onClick={this.props.onActionToggle}>
                 <ListItemIcon>

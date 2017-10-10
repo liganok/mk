@@ -31,7 +31,7 @@ class Trash extends React.Component {
   render () {
     return (
       <Grid container align="center" justify="center">
-        <Grid item xs={11} style={{maxWidth: 800,minWidth:600}}>
+        <Grid item xs={11} style={{maxWidth: 800,minWidth:100}}>
           {this.props.trash && <AgendaList items={this.props.trash} type="trash"/>}
         </Grid>
       </Grid>

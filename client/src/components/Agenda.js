@@ -70,7 +70,7 @@ class Agenda extends React.Component {
     if(!this.props.agendas){return null}
     return (
       <Grid container align="center" justify="center">
-        <Grid item xs={11} style={{maxWidth: 800,minWidth:600}}>
+        <Grid item xs={11} style={{maxWidth: 800,minWidth:100}}>
           <SAddAgenda/>
           {this.props.agendas && <AgendaList items={this.props.agendas} type="agenda"/>}
         </Grid>
