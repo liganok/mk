@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 const superagent = superagentPromise(_superagent, global.Promise)
 
 let API_ROOT = `/api`
-API_ROOT = `http://localhost:3001/api`
+//API_ROOT = `http://localhost:3001/api`
 
 const encode = encodeURIComponent
 const responseBody = res => res.body
