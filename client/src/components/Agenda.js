@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { SLink } from './common/StyledComponents'
 import { connect } from 'react-redux'
 import agent from '../agent'
@@ -9,9 +10,7 @@ import styled from 'styled-components'
 import AgendaList from './AgendaList'
 
 
-import {
-  GET_LIST_AGENDA,
-} from '../constants/actionTypes'
+import { GET_LIST_AGENDA, } from '../constants/actionTypes'
 
 const mapStateToProps = state => ({
   ...state.agendaList,
@@ -19,11 +18,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (payload) =>
-    dispatch({type: GET_LIST_AGENDA, payload}),
+  onLoad: (payload) => dispatch({
+    type: GET_LIST_AGENDA,
+    payload
+  }),
 })
 
-function AddAgenda (props) {
+function AddAgenda() {
   const styles = {
     root: {
       marginTop: 10,
@@ -40,7 +41,7 @@ function AddAgenda (props) {
 
   return (
     <SLink to="/new">
-        <div style={styles.root} className={props.className}>
+        <div style={styles.root}>
           <Add style={styles.addIcon}/>
         </div>
     </SLink>
@@ -56,28 +57,35 @@ const SAddAgenda = styled(AddAgenda)`
 `
 class Agenda extends React.Component {
 
-  componentWillMount () {
-    if(this.props.currentUser){
-      this.props.onLoad(agent.Agenda.all(this.props.currentPage,0))
+  componentWillMount() {
+    if (this.props.currentUser) {
+      this.props.onLoad(agent.Agenda.all(this.props.currentPage, 0))
     }
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps.currentUser !== this.props.currentUser){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser !== this.props.currentUser) {
       this.props.onLoad(agent.Agenda.all())
     }
   }
-  render () {
-    if(!this.props.agendas){return null}
+  render() {
+    if (!this.props.agendas) {
+      return null
+    }
     return (
-      <Grid container align="center" justify="center">
-        <Grid item xs={12} style={{maxWidth: 800,minWidth:100,padding:'10px'}}>
-          <SAddAgenda/>
-          {this.props.agendas && <AgendaList items={this.props.agendas} type="agenda"/>}
-        </Grid>
-      </Grid>
+      <div>
+        <SAddAgenda/>
+        {this.props.agendas && <AgendaList items={this.props.agendas} type="agenda"/>}
+      </div>
     )
   }
 
+}
+
+Agenda.propTypes = {
+  onLoad: PropTypes.func,
+  currentPage: PropTypes.number,
+  agendas: PropTypes.array,
+  currentUser: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Agenda)

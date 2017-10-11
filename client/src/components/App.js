@@ -1,20 +1,13 @@
-import { Switch, Route, Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes'
-import agent from '../agent'
+import Grid from 'material-ui/Grid'
 
-import Login from './Login'
-import Register from './Register'
-import Setting from './Setting'
+import agent from '../agent'
+import routes from '../routes'
 import Header from './Header'
-import AgendaList from './Agenda'
-import AgendaItem from './AgendaItem'
-import AgendaDetail from './AgendaDetail'
-import Play from './AgendaPlay'
-import TemplateList from './Template'
-import TrashList from './Trash'
-import Help from './Help'
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
@@ -25,14 +18,19 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (payload, token) =>
-    dispatch({type: APP_LOAD, payload, token, skipTracking: true}),
-  onRedirect: () =>
-    dispatch({type: REDIRECT})
+  onLoad: (payload, token) => dispatch({
+    type: APP_LOAD,
+    payload,
+    token,
+    skipTracking: true
+  }),
+  onRedirect: () => dispatch({
+    type: REDIRECT
+  })
 })
 
 class App extends React.Component {
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       //this.context.router.replace(nextProps.redirectTo);
       this.props.history.push(nextProps.redirectTo)
@@ -40,7 +38,7 @@ class App extends React.Component {
     }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const token = window.localStorage.getItem('jwt')
     if (token) {
       agent.setToken(token)
@@ -48,37 +46,46 @@ class App extends React.Component {
     this.props.onLoad(token ? agent.Auth.current() : null, token)
   }
 
-  render () {
+  render() {
     let path = this.props.location.pathname
-    if (/*path.indexOf('/login') !== -1 || path.indexOf('/register') !== -1 ||*/ path.indexOf('/play') !== -1) {
+    if ( /*path.indexOf('/login') !== -1 || path.indexOf('/register') !== -1 ||*/ path.indexOf('/play') !== -1) {
       var isNoHeader = true
     }
     //isNoHeader = true
     return (
       <div>
-        {isNoHeader ? <div/> : <Header
-          appName={this.props.appName}
-          inProgress={this.props.inProgress}
-          currentUser={this.props.currentUser}/>}
-        {this.props.appLoaded ? <Switch>
-          <Route exact path='/' component={AgendaList}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/register' component={Register}/>
-          <Route path='/AgendaItem' component={AgendaItem}/>
-          <Route path='/template/detail/:id' component={AgendaDetail}/>
-          <Route path='/template/play/:id' component={Play}/>
-          <Route path='/agenda/detail/:id' component={AgendaDetail}/>
-          <Route path='/agenda/play/:id' component={Play}/>
-          <Route path='/new' component={AgendaDetail}/>
-          <Route path='/setting' component={Setting}/>
-          <Route path='/agenda' component={AgendaList}/>
-          <Route path='/template' component={TemplateList}/>
-          <Route path='/trash' component={TrashList}/>
-          <Route path='/help' component={Help}/>
-        </Switch> : null}
+        {isNoHeader ? <div /> :
+        <Header
+        appName={this.props.appName}
+        inProgress={this.props.inProgress}
+        currentUser={this.props.currentUser}/>}
+        <div style={styles.body}>
+          {this.props.appLoaded ? routes : null}
+        </div>
       </div>
     )
   }
+}
+
+const styles = {
+  body: {
+    margin: '0 auto',
+    padding: 5,
+    maxWidth: 700,
+    minWidth: 100
+  }
+}
+
+App.propTypes = {
+  redirectTo: PropTypes.string,
+  history: PropTypes.any,
+  location: PropTypes.any,
+  onRedirect: PropTypes.func,
+  onLoad: PropTypes.func,
+  appName: PropTypes.string,
+  inProgress: PropTypes.bool,
+  currentUser: PropTypes.object,
+  appLoaded: PropTypes.bool
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

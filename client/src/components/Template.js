@@ -29,15 +29,9 @@ class Template extends React.Component {
 
   render() {
     return (
-      <Grid container align="center" justify="center">
-        <Grid item xs={12} style={{
-        maxWidth: 800,
-        minWidth: 100,
-        padding: '10px'
-      }}>
+        <div>
           {this.props.templates && <AgendaList items={this.props.templates} type="template"/>}
-        </Grid>
-      </Grid>
+        </div>
     )
   }
 

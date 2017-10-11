@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton'
 import PlayArrowIcon from 'material-ui-icons/PlayArrow'
 import Delete from 'material-ui-icons/Delete'
 import Description from 'material-ui-icons/Description'
+import Grid from 'material-ui/Grid'
 
 import { SLink } from './common/StyledComponents'
 import agent from '../agent'
@@ -29,7 +30,7 @@ const mapDispatchToProps = dispatch => ({
 function AgendaItem(props) {
   const {
     id,
-    name,
+    name='hello',
     startedAt,
     updatedAt,
     duration,
@@ -41,20 +42,11 @@ function AgendaItem(props) {
     type
   } = props
 
-  const styles = {
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-    },
-  }
-
   return (
     <Card
       elevation={isShowActions && (id === mouseOverId) ? 4 : 1}
       onMouseOver={() => onActionMouseOver(id)}
       onMouseOut={() => onActionMouseOut(id)}
-      style={styles.root}
     >
       <SLink to={`/${type}/detail/${id}`}>
         <CardHeader
