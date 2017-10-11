@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types'
 import React from 'react'
 import { connect } from 'react-redux'
 import Card, { CardHeader, CardActions, CardContent, CardMedia } from 'material-ui/Card'
@@ -30,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
 function AgendaItem(props) {
   const {
     id,
-    name='hello',
+    name,
     startedAt,
     updatedAt,
     duration,
@@ -78,6 +79,16 @@ function AgendaItem(props) {
     </Card>
   )
 
+}
+
+AgendaItem.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  startedAt: PropTypes.string,
+  updatedAt: PropTypes.string,
+
+  currentPage: PropTypes.number,
+  templates: PropTypes.array
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AgendaItem)
