@@ -1,5 +1,7 @@
 import React from 'react'
 import Grid from 'material-ui/Grid'
+import PropTypes from 'prop-types';
+
 import AgendaItem from './AgendaItem'
 
 function AgendaList (props) {
@@ -28,6 +30,11 @@ function AgendaList (props) {
       {list}
     </Grid>
   )
+}
+
+AgendaList.propTypes = {
+  type: PropTypes.oneOf(['agenda','template','trash']),
+  items: PropTypes.array
 }
 
 export default AgendaList
