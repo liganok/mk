@@ -2,7 +2,7 @@ import React from 'react'
 import Auth from './Auth'
 import Grid from 'material-ui/Grid'
 
-function Login (props) {
+function Login () {
 
   const styles = {
     root: {

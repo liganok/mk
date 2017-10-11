@@ -2,7 +2,6 @@ import {
   AGENDA_UPDATE_FIELD,
   AGENDA_CREATE,
   AGENDA_SAVE,
-  AGENDA_CLOSE_DIALOG,
   AGENDA_MENU_ITEM_TAP,
   AGENDA_GET_DETAIL,
   AI_ACTION_MOUSE_OVER,
@@ -127,5 +126,4 @@ export default (state = defaultState, action) => {
       return state;
   }
 
-  return state;
 };
