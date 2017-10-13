@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3001;
 
 const superagent = superagentPromise(_superagent, global.Promise)
 
-const API_ROOT = (process.env.NODE_ENV === 'development') ? `http://localhost:3001/api` : `/api`
+const API_ROOT = (process.env.NODE_ENV === 'development') ? `http://localhost:3001/api` : `https://meetingku.herokuapp.com/api`
 console.log('port------------------------', API_ROOT, process.env)
 const encode = encodeURIComponent
 const responseBody = res => res.body

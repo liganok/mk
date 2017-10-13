@@ -70,7 +70,7 @@ class App extends React.Component {
 const styles = {
   body: {
     margin: '0 auto',
-    padding: 5,
+    padding: 0,
     maxWidth: 700,
     minWidth: 100
   }
