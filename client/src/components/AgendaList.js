@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import AgendaItem from './AgendaItem'
 
-function AgendaList (props) {
+function AgendaList(props) {
   const {
     items = [],
     type = 'agenda',
@@ -33,7 +33,7 @@ function AgendaList (props) {
 }
 
 AgendaList.propTypes = {
-  type: PropTypes.oneOf(['agenda','template','trash']),
+  type: PropTypes.oneOf(['agenda', 'template', 'trash']),
   items: PropTypes.array
 }
 

@@ -55,10 +55,10 @@ class App extends React.Component {
     return (
       <div>
         {isNoHeader ? <div /> :
-        <Header
-        appName={this.props.appName}
-        inProgress={this.props.inProgress}
-        currentUser={this.props.currentUser}/>}
+          <Header
+            appName={this.props.appName}
+            inProgress={this.props.inProgress}
+            currentUser={this.props.currentUser} />}
         <div style={styles.body}>
           {this.props.appLoaded ? routes : null}
         </div>
