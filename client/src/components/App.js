@@ -3,7 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes'
-import Grid from 'material-ui/Grid'
 
 import agent from '../agent'
 import routes from '../routes'
@@ -24,8 +23,9 @@ const mapDispatchToProps = dispatch => ({
     token,
     skipTracking: true
   }),
-  onRedirect: () => dispatch({
-    type: REDIRECT
+  onRedirect: (value = null) => dispatch({
+    type: REDIRECT,
+    value: value
   })
 })
 

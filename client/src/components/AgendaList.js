@@ -12,23 +12,23 @@ function AgendaList(props) {
 
   const list = items.map((item, index) => {
     return (
-      <Grid item xs={12} key={index}>
-        <AgendaItem
-          type={type}
-          id={item.id}
-          name={item.name}
-          startedAt={item.startedAt}
-          updatedAt={item.updatedAt}
-          duration={item.duration}
-        />
-      </Grid>
+      <AgendaItem
+        key={index}
+        style={{marginTop:15 }}
+        type={type}
+        id={item.id}
+        name={item.name}
+        startedAt={item.startedAt}
+        updatedAt={item.updatedAt}
+        duration={item.duration}
+      />
     )
   })
 
   return (
-    <Grid container>
+    <div>
       {list}
-    </Grid>
+    </div>
   )
 }
 
