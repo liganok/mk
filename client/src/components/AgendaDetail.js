@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
@@ -22,7 +23,7 @@ import {
   AI_ACTION_MOUSE_OUT,
 } from '../constants/actionTypes'
 
-function Item (props) {
+function Item(props) {
   const {
     id,
     name,
@@ -80,12 +81,12 @@ function Item (props) {
               value={name}
               fullWidth
               margin="normal"
-              onChange={(ev) => {onChangeField(id, 'name', ev.target.value)}}
+              onChange={(ev) => { onChangeField(id, 'name', ev.target.value) }}
             />
           </Grid>
-          <Grid item container align="center" spacing={8} style={{display: `${isRoot ? '' : 'none'}`}}>
+          <Grid item container align="center" spacing={8} style={{ display: `${isRoot ? '' : 'none'}` }}>
             <Grid item>
-              <Flag style={styles.icon}/>
+              <Flag style={styles.icon} />
             </Grid>
             <Grid item>
               <TextField
@@ -94,23 +95,23 @@ function Item (props) {
                 step="300"
                 type="datetime-local"
                 value={startedAt}
-                onChange={(ev) => {onChangeField(id, 'startedAt', ev.target.value)}}
+                onChange={(ev) => { onChangeField(id, 'startedAt', ev.target.value) }}
               />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={4} container>
           <Grid item container justify="flex-end"
-                style={{display: isShowActions && (id === mouseOverId) ? '' : 'none',marginTop:'-10px'}}>
-            <IconButton style={styles.actionButton} onClick={() => {onMenuItemTap(id, 'ADD')}}>
-              <Add/>
+            style={{ display: isShowActions && (id === mouseOverId) ? '' : 'none', marginTop: '-10px' }}>
+            <IconButton style={styles.actionButton} onClick={() => { onMenuItemTap(id, 'ADD') }}>
+              <Add />
             </IconButton>
-            <IconButton style={styles.actionButton} onClick={() => {onMenuItemTap(id, 'DEL')}}>
-              <Remove/>
+            <IconButton style={styles.actionButton} onClick={() => { onMenuItemTap(id, 'DEL') }}>
+              <Remove />
             </IconButton>
           </Grid>
           <Grid item container justify="flex-end" align="center">
-            <Alarm style={styles.icon}/>
+            <Alarm style={styles.icon} />
             <TextField
               style={styles.duration}
               disabled={isHasSubItem ? true : false}
@@ -118,9 +119,9 @@ function Item (props) {
               value={duration}
               placeholder="Duration"
               dir="rtl"
-              onChange={(ev) => {onChangeField(id, 'duration', ev.target.value)}}
+              onChange={(ev) => { onChangeField(id, 'duration', ev.target.value) }}
             />
-            <Typography type="caption" style={{paddingLeft: '1px'}}>min</Typography>
+            <Typography type="caption" style={{ paddingLeft: '1px' }}>min</Typography>
           </Grid>
         </Grid>
       </Grid>
@@ -129,7 +130,7 @@ function Item (props) {
 
 }
 
-function ItemList (props) {
+function ItemList(props) {
   const {
     agenda,
     onChangeField,
@@ -140,36 +141,11 @@ function ItemList (props) {
     onMenuItemTap,
   } = props
 
-  const styles = {
-    root: {
-      marginTop: 15,
-      paddingLeft: 10
-    },
-    name: {
-      fontSize: 15
-    },
-    startAt: {
-      fontSize: 8
-    },
-    duration: {
-      fontSize: 8,
-      width: 30,
-    },
-    icon: {
-      width: 15,
-      height: 15
-    },
-    actionButton: {
-      width: 20,
-      height: 20
-    }
-  }
-
   if (!agenda) {
     return null
   }
 
-  function renderComponent (payload) {
+  function renderComponent(payload) {
     const {
       agenda,
       isRoot = false,
@@ -203,8 +179,8 @@ function ItemList (props) {
 
       agenda.subItems.forEach(item => {
         componentArr.push(
-          <div style={{paddingLeft: '15px'}} key={`subItem${item.id}`}>
-            {renderComponent({agenda: item})}
+          <div style={{ paddingLeft: '15px' }} key={`subItem${item.id}`}>
+            {renderComponent({ agenda: item })}
           </div>
         )
       })
@@ -214,25 +190,25 @@ function ItemList (props) {
   }
 
   return (
-    <div style={styles.root}>
-      {renderComponent({agenda: agenda, isRoot: true})}
+    <div>
+      {renderComponent({ agenda: agenda, isRoot: true })}
     </div>
   )
 }
 
-function ActionButtons(props){
+function ActionButtons(props) {
   const {
     agenda,
     onSaveAgenda,
     onDeleteAgenda
   } = props
 
-  const styles={
-    root:{
+  const styles = {
+    root: {
       marginRight: '5px',
-      marginBottom: '15px'
+      marginTop: '15px'
     },
-    button:{
+    button: {
       margin: '5px',
     }
   }
@@ -242,31 +218,31 @@ function ActionButtons(props){
       <Button
         raised dense color="primary"
         style={styles.button}
-        onClick={()=>onSaveAgenda(agenda)}
+        onClick={() => onSaveAgenda(agenda)}
       >
         Save
       </Button>
-      <Button  dense style={styles.button}>
+      <Button dense style={styles.button}>
         Delete
       </Button>
     </div>
   )
 }
 
-const mapStateToProps = state => ({...state.agendaDetail})
+const mapStateToProps = state => ({ ...state.agendaDetail })
 const mapDispatchToProps = dispatch => ({
-  onLoad: (payload) => dispatch({type: AGENDA_GET_DETAIL, payload}),
-  onSaveAgenda: agenda => dispatch({type: AGENDA_SAVE, payload: agent.Agenda.save(agenda)}),
-  onChangeField: (id, key, value) => dispatch({type: AGENDA_UPDATE_FIELD, id: id, key: key, value: value}),
-  onMenuItemTap: (id, value) => dispatch({type: AGENDA_MENU_ITEM_TAP, id: id, value: value}),
-  onActionMouseOver: value => dispatch({type: AI_ACTION_MOUSE_OVER, payload: value}),
-  onActionMouseOut: value => dispatch({type: AI_ACTION_MOUSE_OUT, payload: value}),
+  onLoad: (payload) => dispatch({ type: AGENDA_GET_DETAIL, payload }),
+  onSaveAgenda: agenda => dispatch({ type: AGENDA_SAVE, payload: agent.Agenda.save(agenda) }),
+  onChangeField: (id, key, value) => dispatch({ type: AGENDA_UPDATE_FIELD, id: id, key: key, value: value }),
+  onMenuItemTap: (id, value) => dispatch({ type: AGENDA_MENU_ITEM_TAP, id: id, value: value }),
+  onActionMouseOver: value => dispatch({ type: AI_ACTION_MOUSE_OVER, payload: value }),
+  onActionMouseOut: value => dispatch({ type: AI_ACTION_MOUSE_OUT, payload: value }),
 
 })
 
 class AgendaDetail extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super()
     this.id = props.match.params.id
     this.onLoad = props.onLoad
@@ -275,43 +251,40 @@ class AgendaDetail extends React.Component {
 
   }
 
-  componentWillMount () {
-    console.log('OOOOOOOOOOOOOOOOOOOOOOO',this.props.match)
+  componentWillMount() {
+    console.log('OOOOOOOOOOOOOOOOOOOOOOO', this.props.match)
     if (this.id) {
-      if(this.props.match.path.indexOf('template')>0){
+      if (this.props.match.path.indexOf('template') > 0) {
         this.onLoad(agent.Template.get(this.props.match.params.id))
-      }else{
+      } else {
         this.onLoad(agent.Agenda.get(this.props.match.params.id))
       }
     }
   }
 
-  render () {
+  render() {
 
     const agenda = this.props.currentAgenda
     return (
-      <Grid container justify="center">
-        <Grid item xs={8}>
-          <Grid item container direction="column">
-            <ItemList
-              agenda={agenda}
-              mouseOverId={this.props.mouseOverId}
-              isShowActions={this.props.isShowActions}
-              onChangeField={this.props.onChangeField}
-              onActionMouseOver={this.props.onActionMouseOver}
-              onActionMouseOut={this.props.onActionMouseOut}
-              onMenuItemTap={this.props.onMenuItemTap}
-            />
-            <Grid container justify="flex-end">
-              <ActionButtons
-                agenda={agenda}
-                onSaveAgenda={this.props.onSaveAgenda}/>
-            </Grid>
-        </Grid>
-        </Grid>
-      </Grid>
+      <div>
+        <ItemList
+          agenda={agenda}
+          mouseOverId={this.props.mouseOverId}
+          isShowActions={this.props.isShowActions}
+          onChangeField={this.props.onChangeField}
+          onActionMouseOver={this.props.onActionMouseOver}
+          onActionMouseOut={this.props.onActionMouseOut}
+          onMenuItemTap={this.props.onMenuItemTap}
+        />
+          <ActionButtons
+            agenda={agenda}
+            onSaveAgenda={this.props.onSaveAgenda} />
+      </div>
     )
   }
 }
+AgendaDetail.propTypes = {
+  id: PropTypes.string,
 
+}
 export default connect(mapStateToProps, mapDispatchToProps)(AgendaDetail)

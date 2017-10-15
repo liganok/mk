@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 
 import agent from '../agent'
 import PlayItem from './common/PlayItem'
@@ -13,17 +14,17 @@ import {
   AP_ACTION_UPDATE_TIMER,
 } from '../constants/actionTypes'
 
-function convertTime (time,short) {
+function convertTime(time, short) {
   let h = parseInt(time / 3600)
   let m1 = parseInt((time - h * 3600) / 600)
   let m2 = parseInt((time - h * 3600 - m1 * 600) / 60)
   let s1 = parseInt(time % 60 / 10)
   let s2 = parseInt(time % 60 % 10)
-  if(short){return `${m1}${m2}:${s1}${s2}`}
+  if (short) { return `${m1}${m2}:${s1}${s2}` }
   return `${h}:${m1}${m2}:${s1}${s2}`
 }
 
-function HeaderItem (props) {
+function HeaderItem(props) {
   const {
     completed,
     name,
@@ -33,7 +34,7 @@ function HeaderItem (props) {
 
   return (
     <PlayItem completed={completed}>
-      <Grid container align="center" justify="center" style={{padding: 10}}>
+      <Grid container align="center" justify="center" style={{ padding: 5 }}>
         <Grid item xs={8}>
           <Typography color="inherit" type="display1">{name}</Typography>
         </Grid>
@@ -46,7 +47,7 @@ function HeaderItem (props) {
   )
 }
 
-function BodyItem (props) {
+function BodyItem(props) {
   const {
     completed,
     name,
@@ -68,27 +69,27 @@ function BodyItem (props) {
           <Typography color="secondary" type="title">{name}</Typography>
         </Grid>
         <Grid item xs={4} container align="flex-end" direction="column">
-          <Chip label={duration}/>
+          <Chip label={duration} />
         </Grid>
       </Grid>
     </PlayItem>
   )
 }
 
-function renderComponent (agenda, width, timer) {
+function renderComponent(agenda, width, timer) {
   let componentArr = []
   let isHasSubItem = agenda.subItems.length
   let endPlayTime = agenda.duration * 60 + agenda.startedPlayAt
 
   let completed = timer < agenda.startedPlayAt ? 0
-    : (timer >= endPlayTime ? 100 : (timer - agenda.startedPlayAt+1) / 60 / agenda.duration * 100)
+    : (timer >= endPlayTime ? 100 : (timer - agenda.startedPlayAt + 1) / 60 / agenda.duration * 100)
   const item = (
     <Grid container align="center" justify="center" key={agenda.id} spacing={0}>
       <Grid item xs={12}>
         <BodyItem
           name={agenda.name}
           completed={parseInt(completed)}
-          duration={convertTime(agenda.duration*60,true)}
+          duration={convertTime(agenda.duration * 60, true)}
         />
       </Grid>
     </Grid>
@@ -102,7 +103,7 @@ function renderComponent (agenda, width, timer) {
     componentArr.push(item)
     agenda.subItems.forEach(item => {
       componentArr.push(
-        <div style={{paddingLeft: '30px'}} key={`subItem${item.id}`}>
+        <div style={{ paddingLeft: 15 }} key={`subItem${item.id}`}>
           {renderComponent(item, width, timer)}
         </div>
       )
@@ -112,20 +113,20 @@ function renderComponent (agenda, width, timer) {
   }
 }
 
-const mapStateToProps = state => ({...state.agendaPlay})
+const mapStateToProps = state => ({ ...state.agendaPlay })
 const mapDispatchToProps = dispatch => ({
-  onLoad: (payload) => dispatch({type: AP_ACTION_GET_DETAIL, payload}),
-  onUpdateTimer: (payload) => dispatch({type: AP_ACTION_UPDATE_TIMER, payload}),
+  onLoad: (payload) => dispatch({ type: AP_ACTION_GET_DETAIL, payload }),
+  onUpdateTimer: (payload) => dispatch({ type: AP_ACTION_UPDATE_TIMER, payload }),
 })
 
 class AgendaPlay extends React.Component {
 
-  constructor () {
+  constructor() {
     super()
     this.clock
   }
 
-  componentWillMount () {
+  componentWillMount() {
     if (this.props.match.params.id) {
       this.props.onLoad(agent.Agenda.get(this.props.match.params.id))
     }
@@ -143,13 +144,13 @@ class AgendaPlay extends React.Component {
 
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.clock) {
       clearInterval(this.clock)
     }
   }
 
-  render () {
+  render() {
 
     const currentAgenda = this.props.currentAgenda
 
@@ -162,20 +163,23 @@ class AgendaPlay extends React.Component {
 
     let completed = (this.props.timer) / 60 / currentAgenda.duration * 100
     return (
-      <Grid container align="center" justify="center" style={{marginTop: 10}}>
-        <Grid item xs={11}  style={{maxWidth: 800}}>
-          <HeaderItem
-            name={currentAgenda.name}
-            completed={parseInt(completed)}
-            duration={convertTime(this.props.currentAgenda.duration * 60)}
-            timer={convertTime(this.props.timer)}/>
-          <div style={{marginTop: 5}}>
-            {list}
-          </div>
-        </Grid>
-      </Grid>
+      <div>
+        <HeaderItem
+          name={currentAgenda.name}
+          completed={parseInt(completed)}
+          duration={convertTime(this.props.currentAgenda.duration * 60)}
+          timer={convertTime(this.props.timer)} />
+        <div style={{ marginTop: 5 }}>
+          {list}
+        </div>
+      </div>
     )
   }
+}
+
+AgendaPlay.propTypes = {
+  name: PropTypes.string,
+  items: PropTypes.array
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AgendaPlay)
