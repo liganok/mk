@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
-import VDivider from './common/VDivider'
+import VDivider from '../components/VDivider'
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
 import IconButton from 'material-ui/IconButton'
 

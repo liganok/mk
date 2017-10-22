@@ -1,12 +1,12 @@
 import React from 'react'
-import { SLink } from './common/StyledComponents'
+import { SLink } from '../components/StyledComponents'
 import { connect } from 'react-redux'
 import agent from '../agent'
 import Add from 'material-ui-icons/Add'
 import Grid from 'material-ui/Grid'
 import styled from 'styled-components'
 
-import AgendaItem from './AgendaItem'
+import AgendaItem from '../containers/AgendaItem'
 
 import {
   GET_LIST_AGENDA,

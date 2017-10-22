@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from 'material-ui/Grid'
 import PropTypes from 'prop-types';
 
-import AgendaItem from './AgendaItem'
+import AgendaItem from '../containers/AgendaItem'
 
 function AgendaList(props) {
   const {

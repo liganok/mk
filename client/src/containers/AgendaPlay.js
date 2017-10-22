@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 import agent from '../agent'
-import PlayItem from './common/PlayItem'
+import PlayItem from '../components/PlayItem'
 
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'

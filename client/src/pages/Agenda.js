@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { SLink } from './common/StyledComponents'
+import { SLink } from '../components/StyledComponents'
 import { connect } from 'react-redux'
 import agent from '../agent'
 import Add from 'material-ui-icons/Add'
 import Grid from 'material-ui/Grid'
 import styled from 'styled-components'
 
-import AgendaList from './AgendaList'
+import AgendaList from '../components/AgendaList'
 
 
 import { GET_LIST_AGENDA, } from '../constants/actionTypes'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { SLink } from './common/StyledComponents'
+import { SLink } from '../components/StyledComponents'
 import AppBar from 'material-ui/AppBar'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
@@ -19,7 +19,7 @@ import Paper from 'material-ui/Paper'
 import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 
-import Auth from './Auth'
+import Auth from '../components/Auth'
 
 import {
   H_ACTION_TOGGLE,
