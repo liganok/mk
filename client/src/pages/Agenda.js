@@ -4,13 +4,12 @@ import { SLink } from '../components/StyledComponents'
 import { connect } from 'react-redux'
 import agent from '../agent'
 import Add from 'material-ui-icons/Add'
-import Grid from 'material-ui/Grid'
 import styled from 'styled-components'
 
 import AgendaList from '../components/AgendaList'
 
 
-import { GET_LIST_AGENDA, } from '../constants/actionTypes'
+import * as types from '../constants/actionTypes'
 
 const mapStateToProps = state => ({
   ...state.agendaList,
@@ -19,7 +18,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload) => dispatch({
-    type: GET_LIST_AGENDA,
+    type: types.GET_LIST_AGENDA,
     payload
   }),
 })

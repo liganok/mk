@@ -21,7 +21,7 @@ function Progress (props) {
     }
   }
   return (
-    <Paper style={styles.root}/>
+    <div style={styles.root}/>
   )
 }
 
@@ -47,7 +47,7 @@ class PlayItem extends React.Component {
     return (
       <div ref="ref" style={Object.assign(styles.root, this.props.style)}>
         <Progress height={this.state.height} completed={this.props.completed}>{this.props.children}</Progress>
-        <Paper  elevation={this.props.elevation}>{this.props.children}</Paper>
+        <div style={{background:'white'}} elevation={this.props.elevation}>{this.props.children}</div>
       </div>
     )
   }

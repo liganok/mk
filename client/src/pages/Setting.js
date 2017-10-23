@@ -43,7 +43,7 @@ function Setting(props) {
       marginTop: 20
     }}>
       {!username &&
-        <Grid style={styles.root} container justify="space-between" align="center">
+        <Grid style={styles.root} container spacing={0} justify="space-between" align="center">
           <Grid item xs={8} container direction="column" >
             <Typography>{props.currentUser.username}</Typography>
             <Typography color="secondary">{props.currentUser.email}</Typography>

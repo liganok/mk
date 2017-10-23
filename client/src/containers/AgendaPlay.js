@@ -9,6 +9,8 @@ import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Chip from 'material-ui/Chip';
 
+import HeaderItem from '../components/HeaderItem'
+
 import {
   AP_ACTION_GET_DETAIL,
   AP_ACTION_UPDATE_TIMER,
@@ -24,29 +26,6 @@ function convertTime(time, short) {
   return `${h}:${m1}${m2}:${s1}${s2}`
 }
 
-function HeaderItem(props) {
-  const {
-    completed,
-    name,
-    duration,
-    timer,
-  } = props
-
-  return (
-    <PlayItem completed={completed}>
-      <Grid container align="center" justify="center" style={{ padding: 5 }}>
-        <Grid item xs={8}>
-          <Typography color="inherit" type="display1">{name}</Typography>
-        </Grid>
-        <Grid item xs={4} container align="flex-end" direction="column">
-          <Typography type="display1">{new Date().toLocaleTimeString()}</Typography>
-          <Typography color="secondary" type="subheading">{timer} / {duration}</Typography>
-        </Grid>
-      </Grid>
-    </PlayItem>
-  )
-}
-
 function BodyItem(props) {
   const {
     completed,
@@ -58,17 +37,16 @@ function BodyItem(props) {
   const styles = {
     root: {
       marginTop: 15,
-      padding: 10
     }
   }
 
   return (
     <PlayItem completed={completed}>
-      <Grid container align="center" justify="center" style={styles.root}>
+      <Grid container spacing={0} alignItems="center" justify="center" style={styles.root}>
         <Grid item xs={8}>
           <Typography color="secondary" type="title">{name}</Typography>
         </Grid>
-        <Grid item xs={4} container align="flex-end" direction="column">
+        <Grid  item xs={4} container alignItems="flex-end" direction="column">
           <Chip label={duration} />
         </Grid>
       </Grid>
@@ -76,7 +54,7 @@ function BodyItem(props) {
   )
 }
 
-function renderComponent(agenda, width, timer) {
+function renderComponent(agenda, timer) {
   let componentArr = []
   let isHasSubItem = agenda.subItems.length
   let endPlayTime = agenda.duration * 60 + agenda.startedPlayAt
@@ -84,15 +62,12 @@ function renderComponent(agenda, width, timer) {
   let completed = timer < agenda.startedPlayAt ? 0
     : (timer >= endPlayTime ? 100 : (timer - agenda.startedPlayAt + 1) / 60 / agenda.duration * 100)
   const item = (
-    <Grid container align="center" justify="center" key={agenda.id} spacing={0}>
-      <Grid item xs={12}>
-        <BodyItem
-          name={agenda.name}
-          completed={parseInt(completed)}
-          duration={convertTime(agenda.duration * 60, true)}
-        />
-      </Grid>
-    </Grid>
+    <BodyItem
+      key={agenda.id}
+      name={agenda.name}
+      completed={parseInt(completed)}
+      duration={agenda.duration * 60}
+    />
   )
 
   if (!isHasSubItem) {
@@ -104,7 +79,7 @@ function renderComponent(agenda, width, timer) {
     agenda.subItems.forEach(item => {
       componentArr.push(
         <div style={{ paddingLeft: 15 }} key={`subItem${item.id}`}>
-          {renderComponent(item, width, timer)}
+          {renderComponent(item, timer)}
         </div>
       )
     })
@@ -127,10 +102,10 @@ class AgendaPlay extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.match.params.id) {
-      this.props.onLoad(agent.Agenda.get(this.props.match.params.id))
+    const { match, onLoad, onUpdateTimer } = this.props
+    if (match.params.id) {
+      onLoad(agent.Agenda.get(match.params.id))
     }
-
     if (this.props.currentAgenda) {
       let startTime = new Date().getTime()
       this.clock = setInterval(() => {
@@ -138,10 +113,9 @@ class AgendaPlay extends React.Component {
         if (timer > this.props.currentAgenda.duration * 60) {
           clearInterval(this.clock)
         }
-        this.props.onUpdateTimer(timer)
+        onUpdateTimer(timer)
       }, 1000)
     }
-
   }
 
   componentWillUnmount() {
@@ -151,24 +125,19 @@ class AgendaPlay extends React.Component {
   }
 
   render() {
-
-    const currentAgenda = this.props.currentAgenda
-
+    const { currentAgenda, timer } = this.props
     if (!currentAgenda) {
       return null
     }
-
-    let list = renderComponent(currentAgenda, 700, this.props.timer)
+    let list = renderComponent(currentAgenda, timer)
     list.shift()
 
-    let completed = (this.props.timer) / 60 / currentAgenda.duration * 100
     return (
       <div>
         <HeaderItem
           name={currentAgenda.name}
-          completed={parseInt(completed)}
-          duration={convertTime(this.props.currentAgenda.duration * 60)}
-          timer={convertTime(this.props.timer)} />
+          duration={currentAgenda.duration * 60}
+          spend={timer} />
         <div style={{ marginTop: 5 }}>
           {list}
         </div>
@@ -177,7 +146,19 @@ class AgendaPlay extends React.Component {
   }
 }
 
+BodyItem.propTypes = {
+  name: PropTypes.string,
+  completed: PropTypes.number,
+  duration: PropTypes.number,
+  timer: PropTypes.number
+}
+
 AgendaPlay.propTypes = {
+  currentAgenda: PropTypes.object,
+  timer: PropTypes.number,
+  match: PropTypes.object,
+  onLoad: PropTypes.func,
+  onUpdateTimer: PropTypes.func,
   name: PropTypes.string,
   items: PropTypes.array
 }
