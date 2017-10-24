@@ -7,14 +7,14 @@ import PlayArrowIcon from 'material-ui-icons/PlayArrow'
 import Delete from 'material-ui-icons/Delete'
 import Description from 'material-ui-icons/Description'
 
-import agent from '../agent'
+import agent from '../../agent'
 
 import {
   AI_ACTION_MOUSE_OVER,
   AI_ACTION_MOUSE_OUT,
   AI_ACTION_LOGIC_DEL,
   REDIRECT
-} from '../constants/actionTypes'
+} from '../../constants/actionTypes'
 
 const mapStateToProps = state => ({ ...state.agendaItem })
 const mapDispatchToProps = dispatch => ({

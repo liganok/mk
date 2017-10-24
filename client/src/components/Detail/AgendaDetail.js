@@ -12,7 +12,7 @@ import Remove from 'material-ui-icons/Remove'
 import IconButton from 'material-ui/IconButton'
 import Button from 'material-ui/Button';
 
-import agent from '../agent'
+import agent from '../../agent'
 
 import {
   AGENDA_UPDATE_FIELD,
@@ -21,7 +21,7 @@ import {
   AGENDA_GET_DETAIL,
   AI_ACTION_MOUSE_OVER,
   AI_ACTION_MOUSE_OUT,
-} from '../constants/actionTypes'
+} from '../../constants/actionTypes'
 
 function Item(props) {
   const {

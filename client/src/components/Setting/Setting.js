@@ -5,11 +5,11 @@ import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
-import VDivider from '../components/common/VDivider'
+import VDivider from '../common/VDivider'
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
 import IconButton from 'material-ui/IconButton'
 
-import { LOGOUT } from '../constants/actionTypes'
+import { LOGOUT } from '../../constants/actionTypes'
 
 const mapStateToProps = state => ({
   ...state.settings,

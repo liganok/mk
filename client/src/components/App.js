@@ -6,7 +6,7 @@ import { APP_LOAD, REDIRECT } from '../constants/actionTypes'
 
 import agent from '../agent'
 import routes from '../routes'
-import Header from './Header'
+import Header from './common/Header'
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { SLink } from '../components/common/StyledComponents'
+import { SLink } from './StyledComponents'
 import AppBar from 'material-ui/AppBar'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
@@ -19,13 +19,13 @@ import Paper from 'material-ui/Paper'
 import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
 
-import Auth from '../components/Auth'
+import Auth from '../Auth/Auth'
 
 import {
   H_ACTION_TOGGLE,
   H_ACTION_MOUSEOVER,
   H_ACTION_MOUSEOUT
-} from '../constants/actionTypes'
+} from '../../constants/actionTypes'
 
 function LoggedInView (props) {
   const {

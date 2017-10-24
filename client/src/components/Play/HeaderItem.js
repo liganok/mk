@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
-import Circle from '../components/CircleProgress';
+import Circle from './CircleProgress';
 
-import * as types from '../constants/actionTypes'
+import * as types from '../../constants/actionTypes'
 
 function HeaderItem(props) {
   const {

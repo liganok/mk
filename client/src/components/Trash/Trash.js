@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import agent from '../agent'
+import agent from '../../agent'
 import Grid from 'material-ui/Grid'
 
-import AgendaList from '../components/common/AgendaList'
+import AgendaList from '../common/AgendaList'
 
 
 import {
   GET_LIST_TRASH,
-} from '../constants/actionTypes'
+} from '../../constants/actionTypes'
 
 const mapStateToProps = state => ({
   ...state.agendaList,

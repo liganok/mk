@@ -1,16 +1,16 @@
 import React from 'react'
-import { SLink } from '../components/common/StyledComponents'
+import { SLink } from '../common/StyledComponents'
 import { connect } from 'react-redux'
-import agent from '../agent'
+import agent from '../../agent'
 import Add from 'material-ui-icons/Add'
 import Grid from 'material-ui/Grid'
 import styled from 'styled-components'
 
-import AgendaItem from '../containers/AgendaItem'
+import AgendaItem from '../common/AgendaItem'
 
 import {
   GET_LIST_AGENDA,
-} from '../constants/actionTypes'
+} from '../../constants/actionTypes'
 
 const mapStateToProps = state => ({
   ...state.agendaList,

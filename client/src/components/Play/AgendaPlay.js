@@ -2,19 +2,19 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-import agent from '../agent'
-import PlayItem from '../components/PlayItem'
+import agent from '../../agent'
+import PlayItem from './PlayItem'
 
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Chip from 'material-ui/Chip';
 
-import HeaderItem from '../components/HeaderItem'
+import HeaderItem from './HeaderItem'
 
 import {
   AP_ACTION_GET_DETAIL,
   AP_ACTION_UPDATE_TIMER,
-} from '../constants/actionTypes'
+} from '../../constants/actionTypes'
 
 function convertTime(time, short) {
   let h = parseInt(time / 3600)

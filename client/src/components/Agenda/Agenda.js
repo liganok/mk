@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { SLink } from '../components/StyledComponents'
+import { SLink } from '../common/StyledComponents'
 import { connect } from 'react-redux'
-import agent from '../agent'
+import agent from '../../agent'
 import Add from 'material-ui-icons/Add'
 import styled from 'styled-components'
 
-import AgendaList from '../components/AgendaList'
+import AgendaList from '../common/AgendaList'
 
 
-import * as types from '../constants/actionTypes'
+import * as types from '../../constants/actionTypes'
 
 const mapStateToProps = state => ({
   ...state.agendaList,

@@ -1,16 +1,16 @@
 import React from 'react'
 import {Route, Switch } from 'react-router-dom'
 
-import Login from './components/Login'
-import Register from './components/Register'
-import Setting from './pages/Setting'
-import AgendaList from './pages/Agenda'
-import AgendaItem from './containers/AgendaItem'
-import AgendaDetail from './containers/AgendaDetail'
-import Play from './containers/AgendaPlay'
-import TemplateList from './pages/Template'
-import TrashList from './pages/Trash'
-import Help from './pages/Help'
+import Login from './components/Auth/Login'
+import Register from './components/Auth/Register'
+import Setting from './components/Setting/Setting'
+import AgendaList from './components/Agenda/Agenda'
+import AgendaItem from './components/common/AgendaItem'
+import AgendaDetail from './components/Detail/AgendaDetail'
+import Play from './components/Play/AgendaPlay'
+import TemplateList from './components/Template/Template'
+import TrashList from './components/Trash/Trash'
+import Help from './components/Help/Help'
 
 export default (
     <Switch>
