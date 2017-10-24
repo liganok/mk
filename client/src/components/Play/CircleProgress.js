@@ -72,9 +72,9 @@ class Circle extends Component {
           fillOpacity="0"
           style={trailPathStyle}
         />
-        <text x="50%" y="48%" dy=".3em" fill="gray" textAnchor="middle">
-          <tspan fontSize="30" fontWeight="900">{parseInt(spend / 60)}</tspan>
-          <tspan x="50%" dy="2em" fontSize="7">of {parseInt(duration / 60)} mins</tspan>
+        <text x="50%" y="50%" dy=".3em" fill="gray" textAnchor="middle">
+          <tspan fontSize="35" fontWeight="900">{parseInt(spend / 60)}</tspan>
+          <tspan x="50%" dy="2em" fontSize="10">of {duration} mins</tspan>
         </text>
         {showCirclePath &&
           <path
