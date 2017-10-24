@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { SLink } from '../components/StyledComponents'
+import { SLink } from '../components/common/StyledComponents'
 import AppBar from 'material-ui/AppBar'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'

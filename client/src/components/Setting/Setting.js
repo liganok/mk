@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper'
 import Divider from 'material-ui/Divider'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
-import VDivider from '../components/VDivider'
+import VDivider from '../components/common/VDivider'
 import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
 import IconButton from 'material-ui/IconButton'
 
@@ -43,7 +43,7 @@ function Setting(props) {
       marginTop: 20
     }}>
       {!username &&
-        <Grid style={styles.root} container spacing={0} justify="space-between" align="center">
+        <Grid style={styles.root} container spacing={0} justify="space-between" alignItems="center">
           <Grid item xs={8} container direction="column" >
             <Typography>{props.currentUser.username}</Typography>
             <Typography color="secondary">{props.currentUser.email}</Typography>

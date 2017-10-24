@@ -1,5 +1,5 @@
 import React from 'react'
-import { SLink } from '../components/StyledComponents'
+import { SLink } from '../components/common/StyledComponents'
 import { connect } from 'react-redux'
 import agent from '../agent'
 import Add from 'material-ui-icons/Add'

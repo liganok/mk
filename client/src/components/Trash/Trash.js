@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import agent from '../agent'
 import Grid from 'material-ui/Grid'
 
-import AgendaList from '../components/AgendaList'
+import AgendaList from '../components/common/AgendaList'
 
 
 import {
