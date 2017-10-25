@@ -3,39 +3,9 @@ import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import PlayItem from './PlayItem'
-import Chip from 'material-ui/Chip'
 import Paper from 'material-ui/Paper'
-
-function Item(props) {
-  const {
-    name,
-    duration = 1,
-    spend = 0,
-    spacing = 10
-  } = props
-
-  const styles = {
-    root: {
-      marginTop: spacing,
-      padding: 10,
-      paddingTop: 15,
-      paddingBottom: 15
-    }
-  }
-
-  let completed = parseInt(spend / 60 / duration * 100)
-
-  return (
-    <Paper>
-      <PlayItem completed={completed}>
-        <Grid container spacing={0} justify="space-between" alignItems="center" style={styles.root}>
-          <Typography color="secondary" type="title" noWrap>{name}</Typography>
-          <Typography style={{ backgroundColor: '#eeeeee', padding: 5 }} color="secondary" gutterBottom noWrap>{spend} / {duration}:00</Typography>
-        </Grid>
-      </PlayItem>
-    </Paper>
-  )
-}
+import { withTheme } from 'material-ui/styles';
+import Item from './BodyItem'
 
 function renderComponent(agenda, timer) {
   let componentArr = []
@@ -45,7 +15,7 @@ function renderComponent(agenda, timer) {
   let completed = timer < agenda.startedPlayAt ? 0
     : (timer >= endPlayTime ? 100 : (timer - agenda.startedPlayAt + 1) / 60 / agenda.duration * 100)
   let spend = timer < agenda.startedPlayAt ? 0
-    : (timer >= endPlayTime ? agenda.duration*60 : (timer - agenda.startedPlayAt))
+    : (timer >= endPlayTime ? agenda.duration * 60 : (timer - agenda.startedPlayAt+1))
   const item = (
     <Item
       key={agenda.id}
@@ -90,7 +60,7 @@ Item.propTypes = {
   spacing: PropTypes.number,
   duration: PropTypes.number,
   timer: PropTypes.number,
-  spend: PropTypes.string
+  spend: PropTypes.number
 
 }
 

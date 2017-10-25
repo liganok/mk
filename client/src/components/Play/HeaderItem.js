@@ -4,6 +4,7 @@ import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
 import Circle from './CircleProgress';
+import { withTheme } from 'material-ui/styles';
 
 import * as types from '../../constants/actionTypes'
 
@@ -15,15 +16,16 @@ function HeaderItem(props) {
     startedAt,
     duration = 300,
     spend = 180,
+    theme,
   } = props
 
   const circleContainerStyle = {
     width: '100%',
     height: '100%',
   };
+  console.log('theme', theme)
 
   let percent = parseInt(spend / 60 / duration * 100)
-
   return (
     <Paper>
       <Grid container spacing={0} alignItems='center' justify="center" style={{ padding: 5, backgroundColor: 'white' }}>
@@ -38,7 +40,7 @@ function HeaderItem(props) {
               percent={percent}
               strokeWidth="6"
               strokeLinecap="square"
-              strokeColor='#3FC7FA'
+              strokeColor={theme.palette.primary[700]}
               spend={spend}
               duration={duration}
             />
@@ -56,7 +58,8 @@ HeaderItem.propTypes = {
   location: PropTypes.string,
   startedAt: PropTypes.number,
   duration: PropTypes.number,
-  spend: PropTypes.number
+  spend: PropTypes.number,
+  theme: PropTypes.object
 }
 
-export default HeaderItem
+export default withTheme()(HeaderItem)
