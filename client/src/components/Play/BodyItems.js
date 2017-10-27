@@ -12,10 +12,8 @@ function renderComponent(agenda, timer) {
   let isHasSubItem = agenda.subItems.length
   let endPlayTime = agenda.duration * 60 + agenda.startedPlayAt
 
-  let completed = timer < agenda.startedPlayAt ? 0
-    : (timer >= endPlayTime ? 100 : (timer - agenda.startedPlayAt + 1) / 60 / agenda.duration * 100)
   let spend = timer < agenda.startedPlayAt ? 0
-    : (timer >= endPlayTime ? agenda.duration * 60 : (timer - agenda.startedPlayAt+1))
+    : (timer >= endPlayTime ? agenda.duration * 60 : (timer - agenda.startedPlayAt))
   const item = (
     <Item
       key={agenda.id}

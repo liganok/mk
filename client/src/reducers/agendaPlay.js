@@ -16,16 +16,16 @@ const defaultState = {
 
 function computeStartTime (agenda) {
   if(!agenda.subItems){
-    Object.assign(agenda,{startedPlayAt:0});
+    Object.assign(agenda,{startedPlayAt:1});
   }else{
     agenda.subItems.forEach((item,index)=>{
       if(!index){
         if(!agenda.startedPlayAt){
-          agenda.startedPlayAt = 0;
+          agenda.startedPlayAt = 1;
         }
         Object.assign(item,{startedPlayAt:parseInt(agenda.startedPlayAt)});
       }else{
-        Object.assign(item,{startedPlayAt:parseInt(agenda.subItems[index-1].startedPlayAt+agenda.subItems[index-1].duration*60)+1});
+        Object.assign(item,{startedPlayAt:parseInt(agenda.subItems[index-1].startedPlayAt+agenda.subItems[index-1].duration*60)});
       }
       computeStartTime(item);
     });

@@ -24,12 +24,13 @@ function BodyItem(props) {
     }
   }
   let completed = parseInt(spend / 60 / duration * 100)
+  let spendText = `${parseInt(spend / 60)}:${spend % 60 < 10 ? ('0' + spend % 60) : spend % 60}`
   return (
     <Paper>
       <PlayItem completed={completed} backgroundColor={theme.palette.primary[700]}>
         <Grid container spacing={0} justify="space-between" alignItems="center" style={styles.root}>
           <Typography color="secondary" type="title" noWrap>{name}</Typography>
-          <Typography style={{ backgroundColor: theme.palette.grey[200], padding: 5 }} color="secondary" gutterBottom noWrap>{spend} / {duration}:00</Typography>
+          <Typography style={{ backgroundColor: theme.palette.grey[200], padding: 5 }} color="secondary" gutterBottom noWrap>{spendText} / {duration}:00</Typography>
         </Grid>
       </PlayItem>
     </Paper>

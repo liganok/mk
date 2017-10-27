@@ -11,10 +11,10 @@ import registerServiceWorker from './registerServiceWorker';
 
 
 const theme = createMuiTheme({
-  palette: {
-    primary: blue,
-    secondary: teal
-  }
+  // palette: {
+  //   primary: blue,
+  //   secondary: teal
+  // }
 });
 
 ReactDOM.render((

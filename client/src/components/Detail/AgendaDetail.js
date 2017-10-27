@@ -102,7 +102,7 @@ function Item(props) {
         </Grid>
         <Grid item xs={4} container>
           <Grid item container justify="flex-end"
-            style={{ display: isShowActions && (id === mouseOverId) ? '' : 'none', marginTop: '-10px' }}>
+            style={{ visibility: isShowActions && (id === mouseOverId) ? '' : 'hidden', marginTop: '-10px' }}>
             <IconButton style={styles.actionButton} onClick={() => { onMenuItemTap(id, 'ADD') }}>
               <Add />
             </IconButton>
