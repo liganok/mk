@@ -36,7 +36,7 @@ function ItemList(props) {
     } = payload
 
     let componentArr = []
-    let isHasSubItem = agenda.subItems.length
+    let isHasSubItem = agenda.subItems.length? true:false
     const item = (
       <Item
         key={agenda.id}

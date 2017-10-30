@@ -6,6 +6,10 @@ import IconButton from 'material-ui/IconButton'
 import PlayArrowIcon from 'material-ui-icons/PlayArrow'
 import Delete from 'material-ui-icons/Delete'
 import Description from 'material-ui-icons/Description'
+import Flag from 'material-ui-icons/Flag'
+import Alarm from 'material-ui-icons/Alarm'
+import Typography from 'material-ui/Typography'
+import Grid from 'material-ui/Grid'
 
 import agent from '../../agent'
 
@@ -32,9 +36,9 @@ function AgendaItem(props) {
   const {
     id,
     name,
-    startedAt,
+    startedAt = new Date(),
     updatedAt,
-    duration,
+    duration = 0,
     mouseOverId,
     isShowActions,
     onActionMouseOver,
@@ -54,30 +58,48 @@ function AgendaItem(props) {
     >
       <CardHeader
         title={name}
-        subheader={`${startedAt}/${duration} min`}
         onClick={() => onRedirect(`/${type}/detail/${id}`)} />
-      <CardActions>
-        <IconButton
-          aria-label="Play/pause"
-          onClick={() => onRedirect(`/${type}/play/${id}`)}>
-          <PlayArrowIcon />
-        </IconButton>
-        {type === 'agenda' &&
-          <IconButton aria-label="Delete"
-            onClick={() => onActionLogicDel({ id: id, isDel: true })}>
-            <Delete />
-          </IconButton>}
-        {type === 'trash' &&
-          <IconButton aria-label="Delete"
-            onClick={() => onActionLogicDel({ id: id, isDel: false })}>
-            <Delete />
-          </IconButton>}
-        <IconButton
-          aria-label="Detail"
-          onClick={() => onRedirect(`/${type}/detail/${id}`)}>
-          <Description />
-        </IconButton>
-      </CardActions>
+      <CardContent style={{paddingTop:5}}>
+        <Grid  container spacing={0} justify="space-between" alignItems="center">
+          <Grid item xs={8} container spacing={0}>
+            <Typography color="secondary" type="body2" gutterBottom style={{ paddingRight: 15 }}>
+              <Grid container alignItems="center" spacing={0}>
+                <Flag style={{ width: 20, height: 20, paddingRight: 5 }} />
+                {new Date(startedAt).toLocaleString()}
+              </Grid>
+            </Typography>
+            <Typography color="secondary" type="body2" gutterBottom>
+              <Grid container alignItems="center" spacing={0}>
+                <Alarm style={{ width: 20, height: 20, paddingRight: 5 }} />
+                <span style={{ paddingRight: 5 }}>{duration}</span>
+                mins
+            </Grid>
+            </Typography>
+          </Grid>
+          <Grid item xs={4} container spacing={0} justify="flex-end" style={{ visibility: !(isShowActions && (id === mouseOverId)) && "hidden" }}>
+            <IconButton
+              aria-label="Play/pause"
+              onClick={() => onRedirect(`/${type}/play/${id}`)}>
+              <PlayArrowIcon />
+            </IconButton>
+            {type === 'agenda' &&
+              <IconButton aria-label="Delete"
+                onClick={() => onActionLogicDel({ id: id, isDel: true })}>
+                <Delete />
+              </IconButton>}
+            {type === 'trash' &&
+              <IconButton aria-label="Delete"
+                onClick={() => onActionLogicDel({ id: id, isDel: false })}>
+                <Delete />
+              </IconButton>}
+            <IconButton
+              aria-label="Detail"
+              onClick={() => onRedirect(`/${type}/detail/${id}`)}>
+              <Description />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </CardContent>
     </Card>
   )
 

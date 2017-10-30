@@ -25,39 +25,6 @@ import {
   AI_ACTION_MOUSE_OUT,
 } from '../../constants/actionTypes'
 
-function ActionButtons(props) {
-  const {
-    agenda,
-    onSaveAgenda,
-    onDeleteAgenda
-  } = props
-
-  const styles = {
-    root: {
-      marginRight: '5px',
-      marginTop: '15px'
-    },
-    button: {
-      margin: '5px',
-    }
-  }
-
-  return (
-    <div style={styles.root}>
-      <Button
-        raised dense color="primary"
-        style={styles.button}
-        onClick={() => onSaveAgenda(agenda)}
-      >
-        Save
-      </Button>
-      <Button dense style={styles.button}>
-        Delete
-      </Button>
-    </div>
-  )
-}
-
 const mapStateToProps = state => ({ ...state.agendaDetail })
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload) => dispatch({ type: AGENDA_GET_DETAIL, payload }),
@@ -81,7 +48,6 @@ class AgendaDetail extends React.Component {
   }
 
   componentWillMount() {
-    console.log('OOOOOOOOOOOOOOOOOOOOOOO', this.props.match)
     if (this.id) {
       if (this.props.match.path.indexOf('template') > 0) {
         this.onLoad(agent.Template.get(this.props.match.params.id))
@@ -105,9 +71,17 @@ class AgendaDetail extends React.Component {
           onActionMouseOut={this.props.onActionMouseOut}
           onMenuItemTap={this.props.onMenuItemTap}
         />
-          <ActionButtons
-            agenda={agenda}
-            onSaveAgenda={this.props.onSaveAgenda} />
+        <Grid container justify="flex-end" style={{marginTop:10}}>
+          <Button
+            style={{ margin: 5 }}  
+            raised dense color="primary"
+            onClick={() => this.props.onSaveAgenda(agenda)}>
+            Save
+          </Button>
+          <Button dense style={{ margin: 5 }} >
+            Delete
+          </Button>
+        </Grid>
       </div>
     )
   }

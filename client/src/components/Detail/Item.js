@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import Grid from 'material-ui/Grid'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
-import Typography from 'material-ui/Typography'
 import Flag from 'material-ui-icons/Flag'
 import Alarm from 'material-ui-icons/Alarm'
 import Add from 'material-ui-icons/Add'
 import Remove from 'material-ui-icons/Remove'
 import IconButton from 'material-ui/IconButton'
-import Button from 'material-ui/Button';
+import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 
 function Item(props) {
   const {
     id,
     name,
-    startedAt,
-    duration,
+    startedAt = '2017-12-31T12:59',
+    duration=0,
     isHasSubItem,
     isRoot = false,
     mouseOverId,
@@ -40,7 +39,6 @@ function Item(props) {
     },
     duration: {
       fontSize: 8,
-      width: 30,
     },
     icon: {
       width: 15,
@@ -54,13 +52,13 @@ function Item(props) {
 
   return (
     <Paper
-      elevation={0}
+      elevation={1}
       key={id}
       style={styles.root}
       onMouseOver={() => onActionMouseOver(id)}
       onMouseOut={() => onActionMouseOut(id)}>
       <Grid container spacing={0} alignItems="center" justify="center">
-        <Grid item xs={9}>
+        <Grid item xs={8}>
           <TextField
             style={styles.name}
             id={`name${id}`}
@@ -70,20 +68,20 @@ function Item(props) {
             margin="normal"
             onChange={(ev) => { onChangeField(id, 'name', ev.target.value) }}
           />
-          <Grid item container align="center" spacing={0} style={{ display: `${isRoot ? '' : 'none'}` }}>
-            <Flag style={styles.icon} />
-            <TextField
+          <Grid item container align="center" spacing={0} style={{ display: `${isRoot ? '' : 'none'}`,paddingBottom:10 }}>
+            <Input
               style={styles.startedAt}
               id={`startedAt${startedAt}`}
               step="300"
               type="datetime-local"
-              value={startedAt}
+              value={startedAt.substring(0, 16)}
+              startAdornment={<InputAdornment position="start"><Flag style={styles.icon} /></InputAdornment>}
               onChange={(ev) => { onChangeField(id, 'startedAt', ev.target.value) }}
             />
           </Grid>
         </Grid>
-        <Grid item xs={3} container spacing={0} style={{padding:5}}>
-          <Grid item container justify="flex-end" spacing={0}
+        <Grid item xs={4} container spacing={0} justify="flex-end" style={{ padding: 5 }}>
+          <Grid item
             style={{ visibility: isShowActions && (id === mouseOverId) ? '' : 'hidden' }}>
             <IconButton style={styles.actionButton} onClick={() => { onMenuItemTap(id, 'ADD') }}>
               <Add />
@@ -92,18 +90,19 @@ function Item(props) {
               <Remove />
             </IconButton>
           </Grid>
-          <Grid item container spacing={0} justify="flex-end" alignItems="center" style={{marginTop:10}}>
-            <Alarm style={styles.icon} />
-            <TextField
-              style={styles.duration}
-              disabled={isHasSubItem ? true : false}
-              id={`duration${duration}`}
-              value={duration}
-              placeholder="Duration"
-              onChange={(ev) => { onChangeField(id, 'duration', ev.target.value) }}
-            />
-            <Typography type="caption" style={{ paddingLeft: '1px' }}>min</Typography>
-          </Grid>
+          <Input
+            style={styles.duration}
+            disabled={isHasSubItem ? true : false}
+            id={`duration${duration}`}
+            value={duration}
+            type="number"
+            min="1"
+            max="99"
+            margin="dense"
+            startAdornment={<InputAdornment position="start"><Alarm style={styles.icon} /></InputAdornment>}
+            endAdornment={<InputAdornment position="end">mins</InputAdornment>}
+            onChange={(ev) => { onChangeField(id, 'duration', ev.target.value) }}
+          />
         </Grid>
       </Grid>
     </Paper>
