@@ -49,6 +49,10 @@ function AgendaItem(props) {
     style
   } = props
 
+  const styles = {
+    iconButton: { width: 40, height: 40 }
+  }
+
   return (
     <Card
       style={style}
@@ -59,9 +63,9 @@ function AgendaItem(props) {
       <CardHeader
         title={name}
         onClick={() => onRedirect(`/${type}/detail/${id}`)} />
-      <CardContent style={{paddingTop:5}}>
-        <Grid  container spacing={0} justify="space-between" alignItems="center">
-          <Grid item xs={8} container spacing={0}>
+      <CardContent style={{ paddingTop: 5 }}>
+        <Grid container spacing={0} justify="space-between" alignItems="center">
+          <Grid item xs={7} container spacing={0}>
             <Typography color="secondary" type="body2" gutterBottom style={{ paddingRight: 15 }}>
               <Grid container alignItems="center" spacing={0}>
                 <Flag style={{ width: 20, height: 20, paddingRight: 5 }} />
@@ -76,23 +80,28 @@ function AgendaItem(props) {
             </Grid>
             </Typography>
           </Grid>
-          <Grid item xs={4} container spacing={0} justify="flex-end" style={{ visibility: !(isShowActions && (id === mouseOverId)) && "hidden" }}>
+          <Grid item xs={5} container spacing={0} justify="flex-end"
+            style={{ visibility: !(isShowActions && (id === mouseOverId)) && "display" }}>
             <IconButton
+              style={styles.iconButton}
               aria-label="Play/pause"
               onClick={() => onRedirect(`/${type}/play/${id}`)}>
               <PlayArrowIcon />
             </IconButton>
             {type === 'agenda' &&
               <IconButton aria-label="Delete"
+                style={styles.iconButton}
                 onClick={() => onActionLogicDel({ id: id, isDel: true })}>
                 <Delete />
               </IconButton>}
             {type === 'trash' &&
               <IconButton aria-label="Delete"
+                style={styles.iconButton}
                 onClick={() => onActionLogicDel({ id: id, isDel: false })}>
                 <Delete />
               </IconButton>}
             <IconButton
+              style={styles.iconButton}
               aria-label="Detail"
               onClick={() => onRedirect(`/${type}/detail/${id}`)}>
               <Description />

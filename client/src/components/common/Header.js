@@ -37,7 +37,7 @@ function LoggedInView (props) {
       <IconButton
         color="contrast"
         style={{display: isShow ? null : 'none'}}>
-        <AccountCircle color="contrast"/>
+        <AccountCircle style={{width:30,height:30}} color="contrast"/>
       </IconButton>
     </SLink>
   )
