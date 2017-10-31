@@ -42,7 +42,7 @@ function ItemList(props) {
         key={agenda.id}
         id={agenda.id}
         startedAt={agenda.startedAt}
-        duration={agenda.duration}
+        duration={parseInt(agenda.duration)}
         isHasSubItem={isHasSubItem}
         name={agenda.name}
         isRoot={isRoot}

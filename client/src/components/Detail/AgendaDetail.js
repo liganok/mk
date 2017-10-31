@@ -71,7 +71,7 @@ class AgendaDetail extends React.Component {
           onActionMouseOut={this.props.onActionMouseOut}
           onMenuItemTap={this.props.onMenuItemTap}
         />
-        <Grid container justify="flex-end" style={{marginTop:10}}>
+        <Grid container spacing={0} justify="flex-end" style={{marginTop:10}}>
           <Button
             style={{ margin: 5 }}  
             raised dense color="primary"

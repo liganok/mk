@@ -83,7 +83,7 @@ function Item(props) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={4} container spacing={0} justify="flex-end" style={{ padding: 5 }}>
+        <Grid item xs={4} container direction="column" spacing={0} alignItems="flex-end" style={{ padding: 5 }}>
           <Grid item
             style={{ visibility: isShowActions && (id === mouseOverId) ? '' : 'hidden' }}>
             <IconButton style={styles.actionButton} onClick={() => { onMenuItemTap(id, 'ADD') }}>
@@ -95,12 +95,14 @@ function Item(props) {
           </Grid>
           <Input
             style={styles.duration}
-            disabled={isHasSubItem ? true : false}
             id={`duration${duration}`}
             value={duration}
             type="number"
-            min="1"
-            max="99"
+            inputProps={{
+              'min': '0',
+              'max': '99',
+              'readOnly': isHasSubItem ? true : false
+            }}
             margin="dense"
             startAdornment={<InputAdornment position="start"><Alarm style={styles.icon} /></InputAdornment>}
             endAdornment={<InputAdornment position="end">mins</InputAdornment>}
