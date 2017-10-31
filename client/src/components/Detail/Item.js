@@ -50,6 +50,9 @@ function Item(props) {
     }
   }
 
+  let localDate = new Date(startedAt)
+  let localStartedAt = new Date(localDate.valueOf() - localDate.getTimezoneOffset() * 60000).toISOString()
+
   return (
     <Paper
       elevation={1}
@@ -74,7 +77,7 @@ function Item(props) {
               id={`startedAt${startedAt}`}
               step="300"
               type="datetime-local"
-              value={startedAt.substring(0, 16)}
+              value={localStartedAt.substring(0, 16)}
               startAdornment={<InputAdornment position="start"><Flag style={styles.icon} /></InputAdornment>}
               onChange={(ev) => { onChangeField(id, 'startedAt', ev.target.value) }}
             />
