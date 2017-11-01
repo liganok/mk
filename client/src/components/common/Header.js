@@ -15,11 +15,10 @@ import Delete from 'material-ui-icons/Delete'
 import Help from 'material-ui-icons/Help'
 import Description from 'material-ui-icons/Description'
 import Settings from 'material-ui-icons/Settings'
-import Paper from 'material-ui/Paper'
 import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
-
-import Auth from '../Auth/Auth'
+import Snackbar from 'material-ui/Snackbar';
+import Fade from 'material-ui/transitions/Fade';
 
 import {
   H_ACTION_TOGGLE,
@@ -27,7 +26,7 @@ import {
   H_ACTION_MOUSEOUT
 } from '../../constants/actionTypes'
 
-function LoggedInView (props) {
+function LoggedInView(props) {
   const {
     id,
     isShow = false
@@ -36,26 +35,26 @@ function LoggedInView (props) {
     <SLink to={`/setting`}>
       <IconButton
         color="contrast"
-        style={{display: isShow ? null : 'none'}}>
-        <AccountCircle style={{width:30,height:30}} color="contrast"/>
+        style={{ display: isShow ? null : 'none' }}>
+        <AccountCircle style={{ width: 30, height: 30 }} color="contrast" />
       </IconButton>
     </SLink>
   )
 }
 
-function LoggedOutView (props) {
+function LoggedOutView(props) {
   const {
     isShow = false
   } = props
   return (
-    <div style={{display: isShow ? null : 'none'}}>
+    <div style={{ display: isShow ? null : 'none' }}>
       <SLink to="/login"><Button color="contrast">Log in / Sign up</Button></SLink>
     </div>
   )
 
 }
 
-function AppHeader (props) {
+function AppHeader(props) {
   const {
     user,
     inProgress = false,
@@ -63,6 +62,7 @@ function AppHeader (props) {
     isShowRightButtons = true,
     onActionToggle,
     appLoaded,
+    appName,
     onMouseOut
   } = props
 
@@ -87,19 +87,19 @@ function AppHeader (props) {
             color="contrast" aria-label="Menu"
             style={styles.menuButton}
             onClick={onActionToggle}>
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
           <Typography type="title" color="inherit" style={styles.title}>
-            Agenda
+            {appName}
           </Typography>
-          <div style={{display: inProgress ? '' : 'none'}}>
-            <CircularProgress color="contrast" size={22}/>
+          <div style={{ display: inProgress ? '' : 'none' }}>
+            <CircularProgress color="contrast" size={22} />
           </div>
-          {appLoaded ? (user ? <LoggedInView isShow={isShowRightButtons}/> :
-            <LoggedOutView isShow={isShowRightButtons}/>) : null}
+          {appLoaded ? (user ? <LoggedInView isShow={isShowRightButtons} /> :
+            <LoggedOutView isShow={isShowRightButtons} />) : null}
         </Toolbar>
       </AppBar>
-      <div style={styles.placeholder}/>
+      <div style={styles.placeholder} />
     </div>
   )
 }
@@ -107,28 +107,31 @@ function AppHeader (props) {
 const mapStateToProps = state => ({
   isShowDrawer: state.header.isShowDrawer,
   appLoaded: state.common.appLoaded,
+  appName: state.common.appName,
+  msg: state.common.msg,
 
 })
 const mapDispatchToProps = dispatch => ({
   onActionToggle: () =>
-    dispatch({type: H_ACTION_TOGGLE}),
+    dispatch({ type: H_ACTION_TOGGLE }),
   onMouseOver: () =>
-    dispatch({type: H_ACTION_MOUSEOVER}),
+    dispatch({ type: H_ACTION_MOUSEOVER }),
   onMouseOut: () =>
-    dispatch({type: H_ACTION_MOUSEOUT}),
+    dispatch({ type: H_ACTION_MOUSEOUT }),
 })
 
 class Header extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <AppHeader
+          appName={this.props.appName}
           user={this.props.currentUser}
           appLoaded={this.props.appLoaded}
           inProgress={this.props.inProgress}
           onActionToggle={this.props.onActionToggle}
           onMouseOver={this.props.onMouseOver}
-          onMouseOut={this.props.onMouseOut}/>
+          onMouseOut={this.props.onMouseOut} />
         <Drawer open={this.props.isShowDrawer} onRequestClose={this.props.onActionToggle}>
           <AppHeader
             isShowRightButtons={false}
@@ -136,49 +139,58 @@ class Header extends React.Component {
             onActionToggle={this.props.onActionToggle}
           />
 
-          <Grid style={{width: 250, paddingLeft: 10}}>
+          <Grid style={{ width: 250, paddingLeft: 10 }}>
             <SLink to="/agenda">
               <ListItem button onClick={this.props.onActionToggle}>
                 <ListItemIcon>
-                  <ViewAgenda/>
+                  <ViewAgenda />
                 </ListItemIcon>
-                <ListItemText primary="Agenda"/>
+                <ListItemText primary="Agenda" />
               </ListItem>
             </SLink>
             <SLink to="/template">
               <ListItem button onClick={this.props.onActionToggle}>
                 <ListItemIcon>
-                  <Description/>
+                  <Description />
                 </ListItemIcon>
-                <ListItemText primary="Template"/>
+                <ListItemText primary="Template" />
               </ListItem>
             </SLink>
             <SLink to="/trash">
               <ListItem button onClick={this.props.onActionToggle}>
                 <ListItemIcon>
-                  <Delete/>
+                  <Delete />
                 </ListItemIcon>
-                <ListItemText primary="Trash"/>
+                <ListItemText primary="Trash" />
               </ListItem>
             </SLink>
             <SLink to="/setting">
               <ListItem button onClick={this.props.onActionToggle}>
                 <ListItemIcon>
-                  <Settings/>
+                  <Settings />
                 </ListItemIcon>
-                <ListItemText primary="Setting"/>
+                <ListItemText primary="Setting" />
               </ListItem>
             </SLink>
             <SLink to="/help">
               <ListItem button onClick={this.props.onActionToggle}>
                 <ListItemIcon>
-                  <Help/>
+                  <Help />
                 </ListItemIcon>
-                <ListItemText primary="Help"/>
+                <ListItemText primary="Help" />
               </ListItem>
             </SLink>
           </Grid>
         </Drawer>
+        <Snackbar
+          open={this.props.msg.status? true:false}
+          transition={Fade}
+          autoHideDuration={6000}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{this.props.msg.message}</span>}
+        />
       </div>
     )
   }

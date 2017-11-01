@@ -47,8 +47,8 @@ router.post('/', auth.required, async function (req, res, next) {
 
   try {
     let user = await User.findById(req.payload.id)
-    console.log(user,user._id)
-    if (typeof user._id==='undefined') {
+    console.log(user, user._id)
+    if (typeof user._id === 'undefined') {
       return res.json({
         status: 400,
         type: 'ERROR_GET_USER',
@@ -169,7 +169,7 @@ router.delete('/:agenda', auth.required, function (req, res, next) {
 // type =0 agenda; type =1 trash
 router.get('/', auth.required, function (req, res, next) {
   const getData = async function (req, res) {
-    let query = { isRoot: true ,isDel:{$ne:true}}
+    let query = { isRoot: true, isDel: { $ne: true } }
     let limit = 20
     let offset = 0
 
@@ -184,11 +184,12 @@ router.get('/', auth.required, function (req, res, next) {
     if (req.query.type === '1') {
       query.isDel = true
     }
-    console.log(query,req.query.type === '1')
+    console.log(query, req.query.type === '1')
     try {
       query.user = req.payload.id
       let agendas = await Agenda.find(query)
         .limit(Number(limit))
+        .sort({ startedAt: -1 })
         //.skip(Number(offset))
         .exec()
       return res.json({ agendas: agendas })

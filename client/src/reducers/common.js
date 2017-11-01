@@ -1,54 +1,52 @@
-import {
-  REDIRECT,
-  LOGOUT,
-  LOGIN,
-  REGISTER,
-  ASYNC_START,
-  ASYNC_END,
-  APP_LOAD
-} from '../constants/actionTypes';
+import * as types from '../constants/actionTypes';
 
 const defaultState = {
   appName: 'Meetingku',
   token: null,
+  msg:{status:'',message:''}
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case APP_LOAD:
+    case types.APP_LOAD:
       return {
         ...state,
         token: action.token || null,
         appLoaded: true,
         currentUser: action.payload ? action.payload.user : null
       };
-    case REDIRECT:
+    case types.REDIRECT:
       return { ...state, redirectTo: action.value };
-    case LOGOUT:
+    case types.LOGOUT:
       return { ...state, redirectTo: '/login', token: null, currentUser: null };
-    case LOGIN:
+    case types.LOGIN:
       return {
         ...state,
         redirectTo: action.error ? null : '/agenda',
         token: action.error ? null : action.payload.user.token,
         currentUser: action.error ? null : action.payload.user
       };
-    case REGISTER:
+    case types.REGISTER:
       return {
         ...state,
         redirectTo: action.error ? null : '/login',
         token: null,
         currentUser: null
       };
-    case ASYNC_START:
+    case types.ASYNC_START:
       return {
         ...state,
         inProgress: true
       };
-    case ASYNC_END:
+    case types.ASYNC_END:
       return {
         ...state,
         inProgress: false
+      };
+    case types.SHOW_MSG:
+      return {
+        ...state,
+        msg: action.payload
       };
     default:
       return state;

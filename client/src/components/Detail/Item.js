@@ -14,7 +14,7 @@ function Item(props) {
   const {
     id,
     name,
-    startedAt = '2017-12-31T12:59',
+    startedAt = new Date().toISOString(),
     duration=0,
     isHasSubItem,
     isRoot = false,
@@ -86,7 +86,7 @@ function Item(props) {
         <Grid item xs={4} container direction="column" spacing={0} alignItems="flex-end" style={{ padding: 5 }}>
           <Grid item
             style={{ visibility: isShowActions && (id === mouseOverId) ? '' : 'hidden' }}>
-            <IconButton style={styles.actionButton} onClick={() => { onMenuItemTap(id, 'ADD') }}>
+            <IconButton style={{ ...styles.actionButton,marginRight:15}} onClick={() => { onMenuItemTap(id, 'ADD') }}>
               <Add />
             </IconButton>
             <IconButton style={styles.actionButton} onClick={() => { onMenuItemTap(id, 'DEL') }}>
