@@ -2,31 +2,36 @@ import { withRouter } from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { APP_LOAD, REDIRECT } from '../constants/actionTypes'
-
+import * as types from '../constants/actionTypes'
+import Snackbar from 'material-ui/Snackbar';
+import Fade from 'material-ui/transitions/Fade';
 import agent from '../agent'
 import routes from '../routes'
 import Header from './common/Header'
+import MessageBox from './common/MessageBox'
 
 const mapStateToProps = state => ({
   appLoaded: state.common.appLoaded,
   appName: state.common.appName,
   currentUser: state.common.currentUser,
   redirectTo: state.common.redirectTo,
-  inProgress: state.common.inProgress
+  inProgress: state.common.inProgress,
+  msg: state.common.msg,
+  isShowMsg: state.common.isShowMsg
 })
 
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload, token) => dispatch({
-    type: APP_LOAD,
+    type: types.APP_LOAD,
     payload,
     token,
     skipTracking: true
   }),
   onRedirect: (value = null) => dispatch({
-    type: REDIRECT,
+    type: types.REDIRECT,
     value: value
-  })
+  }),
+  onRequestClose: () => dispatch({ type: types.CLOSE_MSG })
 })
 
 class App extends React.Component {
@@ -62,6 +67,10 @@ class App extends React.Component {
         <div style={styles.body}>
           {this.props.appLoaded ? routes : null}
         </div>
+        <MessageBox
+          msg={this.props.msg}
+          isShowMsg={this.props.isShowMsg}
+          onRequestClose={this.props.onRequestClose} />
       </div>
     )
   }

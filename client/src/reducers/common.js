@@ -46,7 +46,13 @@ export default (state = defaultState, action) => {
     case types.SHOW_MSG:
       return {
         ...state,
-        msg: action.payload
+        msg: action.payload,
+        isShowMsg:true
+      };
+    case types.CLOSE_MSG:
+      return {
+        ...state,
+        isShowMsg: false
       };
     default:
       return state;

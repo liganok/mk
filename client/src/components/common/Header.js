@@ -17,14 +17,7 @@ import Description from 'material-ui-icons/Description'
 import Settings from 'material-ui-icons/Settings'
 import { CircularProgress } from 'material-ui/Progress'
 import Button from 'material-ui/Button'
-import Snackbar from 'material-ui/Snackbar';
-import Fade from 'material-ui/transitions/Fade';
-
-import {
-  H_ACTION_TOGGLE,
-  H_ACTION_MOUSEOVER,
-  H_ACTION_MOUSEOUT
-} from '../../constants/actionTypes'
+import * as types from '../../constants/actionTypes'
 
 function LoggedInView(props) {
   const {
@@ -108,16 +101,14 @@ const mapStateToProps = state => ({
   isShowDrawer: state.header.isShowDrawer,
   appLoaded: state.common.appLoaded,
   appName: state.common.appName,
-  msg: state.common.msg,
-
 })
 const mapDispatchToProps = dispatch => ({
   onActionToggle: () =>
-    dispatch({ type: H_ACTION_TOGGLE }),
+    dispatch({ type: types.H_ACTION_TOGGLE }),
   onMouseOver: () =>
-    dispatch({ type: H_ACTION_MOUSEOVER }),
+    dispatch({ type: types.H_ACTION_MOUSEOVER }),
   onMouseOut: () =>
-    dispatch({ type: H_ACTION_MOUSEOUT }),
+    dispatch({ type: types.H_ACTION_MOUSEOUT }),
 })
 
 class Header extends React.Component {
@@ -182,15 +173,6 @@ class Header extends React.Component {
             </SLink>
           </Grid>
         </Drawer>
-        <Snackbar
-          open={this.props.msg.status? true:false}
-          transition={Fade}
-          autoHideDuration={6000}
-          SnackbarContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{this.props.msg.message}</span>}
-        />
       </div>
     )
   }

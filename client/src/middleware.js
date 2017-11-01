@@ -25,6 +25,7 @@ const promiseMiddleware = store => next => action => {
           store.dispatch({ type: types.SHOW_MSG, payload:res});
         }
         if (action.type === types.AI_ACTION_LOGIC_DEL) {
+          store.dispatch({ type: types.SHOW_MSG, payload: res });
           store.dispatch({ type: types.GET_LIST_AGENDA, payload: agent.Agenda.all(1, 0) })
           store.dispatch({ type: types.GET_LIST_TRASH, payload: agent.Agenda.all(1, 1) })
         }
