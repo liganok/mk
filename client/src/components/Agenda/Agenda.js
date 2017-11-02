@@ -35,20 +35,18 @@ function AddAgenda() {
       width: 25,
       padding: 10,
     }
-
   }
-
   return (
     <SLink to="/new">
-        <div style={styles.root}>
-          <Add style={styles.addIcon}/>
-        </div>
+      <div style={styles.root}>
+        <Add style={styles.addIcon} />
+      </div>
     </SLink>
 
   )
 }
 
-const SAddAgenda = styled(AddAgenda)`
+const SAddAgenda = styled(AddAgenda) `
   transition: background-color 1.5s;
   &:hover {
           background-color: white;
@@ -67,17 +65,13 @@ class Agenda extends React.Component {
     }
   }
   render() {
-    if (!this.props.agendas) {
-      return null
-    }
     return (
       <div>
-        <SAddAgenda/>
-        {this.props.agendas && <AgendaList items={this.props.agendas} type="agenda"/>}
+        <SAddAgenda />
+        {this.props.agendas && <AgendaList items={this.props.agendas} type="agenda" />}
       </div>
     )
   }
-
 }
 
 Agenda.propTypes = {

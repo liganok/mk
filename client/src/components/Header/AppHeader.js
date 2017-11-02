@@ -47,7 +47,7 @@ function AppHeader(props) {
             {appName}
           </Typography>
           <div style={{ display: inProgress ? '' : 'none' }}>
-            <CircularProgress color="contrast" size={22} />
+            <CircularProgress color="inherit" size={22} />
           </div>
           {appLoaded && (user ?
             <LoggedInView isShow={isShowRightButtons} /> :
@@ -62,10 +62,10 @@ function AppHeader(props) {
 AppHeader.propTypes = {
   user: PropTypes.object,
   inProgress: PropTypes.bool,
+  appLoaded: PropTypes.bool,
   isShowRightButtons: PropTypes.bool,
   appName: PropTypes.string,
   onActionToggle: PropTypes.func,
-  appLoaded: PropTypes.func,
 
 }
 

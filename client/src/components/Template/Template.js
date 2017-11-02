@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import agent from '../../agent'
-import Grid from 'material-ui/Grid'
-
 import AgendaList from '../common/AgendaList'
-
-
 import { GET_LIST_TEMPLATE, } from '../../constants/actionTypes'
 
 const mapStateToProps = state => ({
@@ -34,7 +30,6 @@ class Template extends React.Component {
         </div>
     )
   }
-
 }
 
 Template.propTypes = {

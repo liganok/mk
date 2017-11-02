@@ -24,19 +24,9 @@ class AgendaPlay extends React.Component {
   }
 
   componentWillMount() {
-    const { match, onLoad, onUpdateTimer } = this.props
+    const { match, onLoad } = this.props
     if (match.params.id) {
       onLoad(agent.Agenda.get(match.params.id))
-    }
-    if (this.props.currentAgenda) {
-      let startTime = new Date().getTime()
-      this.clock = setInterval(() => {
-        let timer = parseInt((new Date().getTime() - startTime) / 1000)
-        if (timer > this.props.currentAgenda.duration * 60) {
-          clearInterval(this.clock)
-        }
-        onUpdateTimer(timer)
-      }, 1000)
     }
   }
 
@@ -47,10 +37,24 @@ class AgendaPlay extends React.Component {
   }
 
   render() {
-    const { currentAgenda, timer } = this.props
+    const { currentAgenda, timer, onUpdateTimer } = this.props
     if (!currentAgenda) {
       return null
     }
+    let startTime = new Date(currentAgenda.startedAt).getTime()
+    let nowTime = new Date().getTime()
+    if (nowTime >= startTime && nowTime <= (startTime + currentAgenda.duration * 60000)) { 
+      this.clock = setInterval(() => {
+        let timer = parseInt((new Date().getTime() - startTime) / 1000)
+        onUpdateTimer(timer)
+      }, 1000)
+      if (timer > currentAgenda.duration * 60) {
+        clearInterval(this.clock)
+      }
+    } else {
+      clearInterval(this.clock)
+     }
+
     return (
       <div>
         <HeaderItem
@@ -59,7 +63,7 @@ class AgendaPlay extends React.Component {
           spend={timer} />
         <BodyItems
           agenda={currentAgenda}
-          timer={timer}/>
+          timer={timer} />
       </div>
     )
   }

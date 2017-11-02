@@ -19,7 +19,10 @@ import {
 const mapStateToProps = state => ({ ...state.agendaDetail })
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload) => dispatch({ type: AGENDA_GET_DETAIL, payload }),
-  onSaveAgenda: agenda => dispatch({ type: AGENDA_SAVE, payload: agent.Agenda.save(agenda) }),
+  onSaveAgenda: agenda => {
+    agenda.startedAt = new Date(agenda.startedAt).toISOString()
+    dispatch({ type: AGENDA_SAVE, payload: agent.Agenda.save(agenda) })
+  },
   onChangeField: (id, key, value) => dispatch({ type: AGENDA_UPDATE_FIELD, id: id, key: key, value: value }),
   onMenuItemTap: (id, value) => dispatch({ type: AGENDA_MENU_ITEM_TAP, id: id, value: value }),
   onActionMouseOver: value => dispatch({ type: AI_ACTION_MOUSE_OVER, payload: value }),
@@ -30,12 +33,12 @@ const mapDispatchToProps = dispatch => ({
 class AgendaDetail extends React.Component {
 
   componentWillMount() {
-    const { match } = this.props
-    if (this.id) {
+    const { match, onLoad } = this.props
+    if (match.params.id) {
       if (match.path.indexOf('template') > 0) {
-        this.onLoad(agent.Template.get(match.params.id))
+        onLoad(agent.Template.get(match.params.id))
       } else {
-        this.onLoad(agent.Agenda.get(match.params.id))
+        onLoad(agent.Agenda.get(match.params.id))
       }
     }
   }
@@ -82,8 +85,9 @@ class AgendaDetail extends React.Component {
 AgendaDetail.propTypes = {
   match: PropTypes.object,
   currentAgenda: PropTypes.object,
-  mouseOverId: PropTypes.func,
+  mouseOverId: PropTypes.string,
   isShowActions: PropTypes.bool,
+  onLoad: PropTypes.func,
   onChangeField: PropTypes.func,
   onActionMouseOver: PropTypes.func,
   onActionMouseOut: PropTypes.func,

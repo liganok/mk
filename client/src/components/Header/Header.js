@@ -12,20 +12,6 @@ import Settings from 'material-ui-icons/Settings'
 
 import AppHeader from './AppHeader'
 
-// const mapStateToProps = state => ({
-//   isShowDrawer: state.header.isShowDrawer,
-//   appLoaded: state.common.appLoaded,
-//   appName: state.common.appName,
-// })
-// const mapDispatchToProps = dispatch => ({
-//   onActionToggle: () =>
-//     dispatch({ type: types.H_ACTION_TOGGLE }),
-//   onMouseOver: () =>
-//     dispatch({ type: types.H_ACTION_MOUSEOVER }),
-//   onMouseOut: () =>
-//     dispatch({ type: types.H_ACTION_MOUSEOUT }),
-// })
-
 function Header(props) {
   const {
     appName,
@@ -45,6 +31,7 @@ function Header(props) {
         onActionToggle={onActionToggle}/>
       <Drawer open={isShowDrawer} onRequestClose={onActionToggle}>
         <AppHeader
+          appName={appName}  
           isShowRightButtons={false}
           position="absolute"
           onActionToggle={onActionToggle}

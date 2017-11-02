@@ -8,7 +8,7 @@ import Alarm from 'material-ui-icons/Alarm'
 import Add from 'material-ui-icons/Add'
 import Remove from 'material-ui-icons/Remove'
 import IconButton from 'material-ui/IconButton'
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import Input, { InputAdornment } from 'material-ui/Input';
 
 function Item(props) {
   const {
@@ -51,7 +51,7 @@ function Item(props) {
   }
 
   let localDate = new Date(startedAt)
-  let localStartedAt = new Date(localDate.valueOf() - localDate.getTimezoneOffset() * 60000).toISOString()
+  let localStartedAt =  new Date(localDate.valueOf() - localDate.getTimezoneOffset() * 60000).toISOString().substring(0, 16)
 
   return (
     <Paper
@@ -77,7 +77,7 @@ function Item(props) {
               id={`startedAt${startedAt}`}
               step="300"
               type="datetime-local"
-              value={localStartedAt.substring(0, 16)}
+              value={localStartedAt}
               startAdornment={<InputAdornment position="start"><Flag style={styles.icon} /></InputAdornment>}
               onChange={(ev) => { onChangeField(id, 'startedAt', ev.target.value) }}
             />

@@ -72,7 +72,7 @@ ItemList.propTypes = {
   agenda: PropTypes.object,
   isShowActions: PropTypes.bool,
   onChangeField: PropTypes.func,
-  mouseOverId: PropTypes.func,
+  mouseOverId: PropTypes.string,
   onActionMouseOver: PropTypes.func,
   onActionMouseOut: PropTypes.func,
   onMenuItemTap: PropTypes.func

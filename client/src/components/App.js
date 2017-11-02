@@ -48,7 +48,7 @@ class App extends React.Component {
       onRequestClose,
       onActionToggle
     } = this.props
-    
+
     let isShowHeader = true
     if ( /*path.indexOf('/login') !== -1 || path.indexOf('/register') !== -1 ||*/ location.pathname.indexOf('/play') !== -1) {
       isShowHeader = false
@@ -60,6 +60,7 @@ class App extends React.Component {
           <Header
             appName={appName}
             user={currentUser}
+            appLoaded={appLoaded}
             inProgress={inProgress}
             isShowDrawer={isShowDrawer}
             onActionToggle={onActionToggle} />}
