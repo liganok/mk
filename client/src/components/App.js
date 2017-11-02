@@ -3,35 +3,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as types from '../constants/actionTypes'
-import Snackbar from 'material-ui/Snackbar';
-import Fade from 'material-ui/transitions/Fade';
 import agent from '../agent'
 import routes from '../routes'
-import Header from './common/Header'
+import Header from './Header/Header'
 import MessageBox from './common/MessageBox'
 
-const mapStateToProps = state => ({
-  appLoaded: state.common.appLoaded,
-  appName: state.common.appName,
-  currentUser: state.common.currentUser,
-  redirectTo: state.common.redirectTo,
-  inProgress: state.common.inProgress,
-  msg: state.common.msg,
-  isShowMsg: state.common.isShowMsg
-})
-
+const mapStateToProps = state => ({ ...state.common })
 const mapDispatchToProps = dispatch => ({
-  onLoad: (payload, token) => dispatch({
-    type: types.APP_LOAD,
-    payload,
-    token,
-    skipTracking: true
-  }),
-  onRedirect: (value = null) => dispatch({
-    type: types.REDIRECT,
-    value: value
-  }),
-  onRequestClose: () => dispatch({ type: types.CLOSE_MSG })
+  onLoad: (payload, token) => dispatch({ type: types.APP_LOAD, payload, token, }),
+  onRedirect: (value = null) => dispatch({ type: types.REDIRECT, value: value }),
+  onRequestClose: () => dispatch({ type: types.CLOSE_MSG }),
+  onActionToggle: () => dispatch({ type: types.H_ACTION_TOGGLE }),
+  onMouseOver: () => dispatch({ type: types.H_ACTION_MOUSEOVER }),
+  onMouseOut: () => dispatch({ type: types.H_ACTION_MOUSEOUT }),
 })
 
 class App extends React.Component {
@@ -52,25 +36,40 @@ class App extends React.Component {
   }
 
   render() {
-    let path = this.props.location.pathname
-    if ( /*path.indexOf('/login') !== -1 || path.indexOf('/register') !== -1 ||*/ path.indexOf('/play') !== -1) {
-      var isNoHeader = true
+    const {
+      location,
+      appName,
+      inProgress,
+      isShowDrawer,
+      currentUser,
+      appLoaded,
+      msg,
+      isShowMsg,
+      onRequestClose,
+      onActionToggle
+    } = this.props
+    
+    let isShowHeader = true
+    if ( /*path.indexOf('/login') !== -1 || path.indexOf('/register') !== -1 ||*/ location.pathname.indexOf('/play') !== -1) {
+      isShowHeader = false
     }
-    //isNoHeader = true
+    //isShowHeader = false
     return (
       <div>
-        {isNoHeader ? <div /> :
+        {isShowHeader &&
           <Header
-            appName={this.props.appName}
-            inProgress={this.props.inProgress}
-            currentUser={this.props.currentUser} />}
+            appName={appName}
+            user={currentUser}
+            inProgress={inProgress}
+            isShowDrawer={isShowDrawer}
+            onActionToggle={onActionToggle} />}
         <div style={styles.body}>
-          {this.props.appLoaded ? routes : null}
+          {appLoaded && routes}
         </div>
         <MessageBox
-          msg={this.props.msg}
-          isShowMsg={this.props.isShowMsg}
-          onRequestClose={this.props.onRequestClose} />
+          msg={msg}
+          isShowMsg={isShowMsg}
+          onRequestClose={onRequestClose} />
       </div>
     )
   }
@@ -89,12 +88,17 @@ App.propTypes = {
   redirectTo: PropTypes.string,
   history: PropTypes.any,
   location: PropTypes.any,
-  onRedirect: PropTypes.func,
-  onLoad: PropTypes.func,
   appName: PropTypes.string,
   inProgress: PropTypes.bool,
+  isShowDrawer: PropTypes.bool,
   currentUser: PropTypes.object,
-  appLoaded: PropTypes.bool
+  appLoaded: PropTypes.bool,
+  msg: PropTypes.object,
+  isShowMsg: PropTypes.bool,
+  onRedirect: PropTypes.func,
+  onRequestClose: PropTypes.func,
+  onLoad: PropTypes.func,
+  onActionToggle: PropTypes.func,
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

@@ -3,7 +3,9 @@ import * as types from '../constants/actionTypes';
 const defaultState = {
   appName: 'Meetingku',
   token: null,
-  msg:{status:'',message:''}
+  isShowDrawer:false,
+  msg:{status:'',message:'',
+}
 };
 
 export default (state = defaultState, action) => {
@@ -54,6 +56,8 @@ export default (state = defaultState, action) => {
         ...state,
         isShowMsg: false
       };
+    case types.H_ACTION_TOGGLE:
+      return { ...state, isShowDrawer: !state.isShowDrawer, };
     default:
       return state;
   }

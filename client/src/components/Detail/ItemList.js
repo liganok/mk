@@ -1,17 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
-import Grid from 'material-ui/Grid'
-import Paper from 'material-ui/Paper'
-import TextField from 'material-ui/TextField'
-import Typography from 'material-ui/Typography'
-import Flag from 'material-ui-icons/Flag'
-import Alarm from 'material-ui-icons/Alarm'
-import Add from 'material-ui-icons/Add'
-import Remove from 'material-ui-icons/Remove'
-import IconButton from 'material-ui/IconButton'
-import Button from 'material-ui/Button';
-
 import Item from './Item'
 
 function ItemList(props) {
@@ -36,7 +24,7 @@ function ItemList(props) {
     } = payload
 
     let componentArr = []
-    let isHasSubItem = agenda.subItems.length? true:false
+    let isHasSubItem = agenda.subItems.length ? true : false
     const item = (
       <Item
         key={agenda.id}
@@ -81,7 +69,12 @@ function ItemList(props) {
 }
 
 ItemList.propTypes = {
-  id: PropTypes.string,
-
+  agenda: PropTypes.object,
+  isShowActions: PropTypes.bool,
+  onChangeField: PropTypes.func,
+  mouseOverId: PropTypes.func,
+  onActionMouseOver: PropTypes.func,
+  onActionMouseOut: PropTypes.func,
+  onMenuItemTap: PropTypes.func
 }
 export default ItemList
