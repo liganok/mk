@@ -53,7 +53,7 @@ class App extends React.Component {
     if ( /*path.indexOf('/login') !== -1 || path.indexOf('/register') !== -1 ||*/ location.pathname.indexOf('/play') !== -1) {
       isShowHeader = false
     }
-    //isShowHeader = false
+    isShowHeader = false
     return (
       <div>
         {isShowHeader &&

@@ -23,7 +23,12 @@ const mapDispatchToProps = dispatch => ({
     agenda.startedAt = new Date(agenda.startedAt).toISOString()
     dispatch({ type: AGENDA_SAVE, payload: agent.Agenda.save(agenda) })
   },
-  onChangeField: (id, key, value) => dispatch({ type: AGENDA_UPDATE_FIELD, id: id, key: key, value: value }),
+  onChangeField: (id, key, value) => {
+    if (key === 'startedAt') {
+      value = new Date(value).toISOString()
+    }
+    dispatch({ type: AGENDA_UPDATE_FIELD, id: id, key: key, value: value })
+  },
   onMenuItemTap: (id, value) => dispatch({ type: AGENDA_MENU_ITEM_TAP, id: id, value: value }),
   onActionMouseOver: value => dispatch({ type: AI_ACTION_MOUSE_OVER, payload: value }),
   onActionMouseOut: value => dispatch({ type: AI_ACTION_MOUSE_OUT, payload: value }),
