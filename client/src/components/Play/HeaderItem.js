@@ -32,7 +32,7 @@ function HeaderItem(props) {
         <Grid item xs={9} >
           <Typography color="inherit" type="display1">{name}</Typography>
           <Typography color="secondary" type="body2">{location}</Typography>
-          <Typography color="secondary" type="body2">{'Today 08:00 - 08:50'}</Typography>
+          <Typography color="secondary" type="body2">{new Date(startedAt).toLocaleString()}</Typography>
         </Grid>
         <Grid item xs={3} container spacing={0} justify="flex-end" alignItems="center">
           <div style={circleContainerStyle}>

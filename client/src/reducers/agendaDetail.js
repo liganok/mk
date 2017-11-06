@@ -97,8 +97,8 @@ export default (state = defaultState, action) => {
       if (action.payload.status) {
         agenda = action.payload.agenda
         //convert ISO date to local date for h5 datetime-local display
-        let ISODate = new Date(agenda.startedAt)
-        agenda.startedAt = new Date(ISODate.valueOf() - ISODate.getTimezoneOffset() * 60000).toISOString().substring(0, 16)
+        //let ISODate = new Date(agenda.startedAt)
+        //agenda.startedAt = new Date(ISODate.valueOf() - ISODate.getTimezoneOffset() * 60000).toISOString().substring(0, 16)
       }
       return {
         ...state,

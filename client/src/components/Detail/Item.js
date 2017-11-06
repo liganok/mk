@@ -5,6 +5,8 @@ import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Flag from 'material-ui-icons/Flag'
 import Alarm from 'material-ui-icons/Alarm'
+import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft'
+import KeyboardArrowRight from 'material-ui-icons/KeyboardArrowRight'
 import Add from 'material-ui-icons/Add'
 import Remove from 'material-ui-icons/Remove'
 import IconButton from 'material-ui/IconButton'
@@ -32,7 +34,7 @@ function Item(props) {
       paddingLeft: 10
     },
     name: {
-      fontSize: 15
+      fontSize: 25
     },
     startedAt: {
       fontSize: 8
@@ -72,14 +74,21 @@ function Item(props) {
             onChange={(ev) => { onChangeField(id, 'name', ev.target.value) }}
           />
           <Grid item container align="center" spacing={0} style={{ display: `${isRoot ? '' : 'none'}`,paddingBottom:10 }}>
-            <Input
+            <DateTimePicker
               style={styles.startedAt}
               id={`startedAt${startedAt}`}
-              step="300"
-              type="datetime-local"
               value={startedAt}
-              startAdornment={<InputAdornment position="start"><Flag style={styles.icon} /></InputAdornment>}
-              onChange={(ev) => { onChangeField(id, 'startedAt', ev.target.value) }}
+              leftArrowIcon={<KeyboardArrowLeft/>}
+              rightArrowIcon={<KeyboardArrowRight />}
+              InputProps={{
+                style:styles.startedAt,
+                startAdornment: (
+                  <InputAdornment  position="start">
+                    <Flag style={styles.icon}/>
+                  </InputAdornment>
+                )
+              }} 
+              onChange={(time) => { onChangeField(id, 'startedAt', time) }}
             />
           </Grid>
         </Grid>

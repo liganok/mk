@@ -62,6 +62,7 @@ class AgendaPlay extends React.Component {
       <div>
         <HeaderItem
           name={currentAgenda.name}
+          startedAt={currentAgenda.startedAt}
           duration={currentAgenda.duration}
           spend={timer} />
         <BodyItems
