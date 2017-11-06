@@ -20,13 +20,11 @@ const mapStateToProps = state => ({ ...state.agendaDetail })
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload) => dispatch({ type: AGENDA_GET_DETAIL, payload }),
   onSaveAgenda: agenda => {
-    agenda.startedAt = new Date(agenda.startedAt).toISOString()
-    dispatch({ type: AGENDA_SAVE, payload: agent.Agenda.save(agenda) })
+    let ISOStartedAt = new Date(agenda.startedAt).toISOString()
+    let savedAgenda = { ...agenda,startedAt:ISOStartedAt }
+    dispatch({ type: AGENDA_SAVE, payload: agent.Agenda.save(savedAgenda) })
   },
   onChangeField: (id, key, value) => {
-    if (key === 'startedAt') {
-      value = new Date(value).toISOString()
-    }
     dispatch({ type: AGENDA_UPDATE_FIELD, id: id, key: key, value: value })
   },
   onMenuItemTap: (id, value) => dispatch({ type: AGENDA_MENU_ITEM_TAP, id: id, value: value }),

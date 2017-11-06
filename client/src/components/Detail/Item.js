@@ -9,12 +9,12 @@ import Add from 'material-ui-icons/Add'
 import Remove from 'material-ui-icons/Remove'
 import IconButton from 'material-ui/IconButton'
 import Input, { InputAdornment } from 'material-ui/Input';
-
+import { DateTimePicker } from 'material-ui-pickers'
 function Item(props) {
   const {
     id,
     name,
-    startedAt = new Date().toISOString(),
+    startedAt,
     duration=0,
     isHasSubItem,
     isRoot = false,
@@ -50,8 +50,8 @@ function Item(props) {
     }
   }
 
-  let localDate = new Date(startedAt)
-  let localStartedAt =  new Date(localDate.valueOf() - localDate.getTimezoneOffset() * 60000).toISOString().substring(0, 16)
+  //let localDate = new Date(startedAt)
+  //let localStartedAt =  new Date(localDate.valueOf() - localDate.getTimezoneOffset() * 60000).toISOString().substring(0, 16)
 
   return (
     <Paper
@@ -77,7 +77,7 @@ function Item(props) {
               id={`startedAt${startedAt}`}
               step="300"
               type="datetime-local"
-              value={localStartedAt}
+              value={startedAt}
               startAdornment={<InputAdornment position="start"><Flag style={styles.icon} /></InputAdornment>}
               onChange={(ev) => { onChangeField(id, 'startedAt', ev.target.value) }}
             />

@@ -30,6 +30,25 @@ class AgendaPlay extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { currentAgenda, onUpdateTimer } = nextProps
+    if (currentAgenda) {
+      let startTime = new Date(currentAgenda.startedAt).getTime()
+      this.clock = setInterval(() => {
+        let nowTime = new Date().getTime()
+        let timer = 0
+        if (nowTime >= startTime && nowTime <= (startTime + currentAgenda.duration * 60000 + 20000)) {
+          timer = parseInt((nowTime - startTime) / 1000)
+          console.log('*****timer****',timer)
+          onUpdateTimer(timer)
+        }
+        if (timer > currentAgenda.duration * 60 + 10) {
+          clearInterval(this.clock)
+        }
+      }, 1000)
+    }
+  }
+
   componentWillUnmount() {
     if (this.clock) {
       clearInterval(this.clock)
@@ -37,24 +56,8 @@ class AgendaPlay extends React.Component {
   }
 
   render() {
-    const { currentAgenda, timer, onUpdateTimer } = this.props
-    if (!currentAgenda) {
-      return null
-    }
-    let startTime = new Date(currentAgenda.startedAt).getTime()
-    let nowTime = new Date().getTime()
-    if (nowTime >= startTime && nowTime <= (startTime + currentAgenda.duration * 60000)) { 
-      this.clock = setInterval(() => {
-        let timer = parseInt((new Date().getTime() - startTime) / 1000)
-        onUpdateTimer(timer)
-      }, 1000)
-      if (timer > currentAgenda.duration * 60) {
-        clearInterval(this.clock)
-      }
-    } else {
-      clearInterval(this.clock)
-     }
-
+    const { currentAgenda, timer } = this.props
+    if (!currentAgenda) { return null }
     return (
       <div>
         <HeaderItem

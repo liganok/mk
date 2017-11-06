@@ -93,6 +93,13 @@ function removeAgenda(sourceAgenda, id) {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case AGENDA_GET_DETAIL:
+      let agenda = null
+      if (action.payload.status) {
+        agenda = action.payload.agenda
+        //convert ISO date to local date for h5 datetime-local display
+        let ISODate = new Date(agenda.startedAt)
+        agenda.startedAt = new Date(ISODate.valueOf() - ISODate.getTimezoneOffset() * 60000).toISOString().substring(0, 16)
+      }
       return {
         ...state,
         currentAgenda: action.payload.status ? action.payload.agenda : null
