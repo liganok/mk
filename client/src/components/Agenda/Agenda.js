@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
   }),
 })
 
-function AddAgenda() {
+function AddAgenda(props) {
   const styles = {
     root: {
       marginTop: 10,
@@ -35,10 +35,12 @@ function AddAgenda() {
       width: 25,
       padding: 10,
     }
+
   }
+
   return (
     <SLink to="/new">
-      <div style={styles.root}>
+      <div style={styles.root} className={props.className}>
         <Add style={styles.addIcon} />
       </div>
     </SLink>

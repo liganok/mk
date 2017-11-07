@@ -36,7 +36,7 @@ function AppHeader(props) {
   return (
     <div>
       <AppBar position="fixed">
-        <Toolbar>
+        <Toolbar style={{display:'flex',alignItems:'center'}}>
           <IconButton
             color="contrast" aria-label="Menu"
             style={styles.menuButton}
