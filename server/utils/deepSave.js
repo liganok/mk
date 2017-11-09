@@ -1,6 +1,7 @@
-import deepRemove from './deepRemove'
 let mongoose = require('mongoose');
 let Agenda = mongoose.model('Agenda');
+
+let delArr = []
 
 async function save(agenda) {
   if (agenda.id.search('NEW') >= 0) {
@@ -35,9 +36,10 @@ async function save(agenda) {
       //deep remove uneeded item
       // date.subItems.foreach((item, index) => {
       //   if (-1 === agenda.subItems.indexOf(item)) {
-      //     deepRemove(item)
+      //     delArr.push(item)
       //   }
       // })
+      //console.log('sid-tid',data.subItems,agenda.subItems)
       data.subItems = agenda.subItems;
     }
 
@@ -66,6 +68,6 @@ export default async function deepSave(agenda) {
       }
     }
     let agendaPromise = await save(agenda);
-    return agendaPromise;
+    return { agendaPromise,delArr };
   }
 }

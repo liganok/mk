@@ -47,7 +47,6 @@ router.post('/', auth.required, async function (req, res, next) {
 
   try {
     let user = await User.findById(req.payload.id)
-    console.log(user, user._id)
     if (typeof user._id === 'undefined') {
       return res.json({
         status: 400,
@@ -66,8 +65,10 @@ router.post('/', auth.required, async function (req, res, next) {
     }
     agenda.isRoot = true
     agenda.user = req.payload.id
+    console.log('source', req.body.delArr)
 
     let savedAgenda = await deepSave(agenda)
+    //console.log('target', savedAgenda)
     return res.json({
       status: 200,
       message: 'Data saved'
@@ -117,6 +118,8 @@ router.put('/:agenda', auth.required, async function (req, res, next) {
         req.agenda.isDel = req.body.agenda.isDel
       }
       let savedAgenda = await req.agenda.save()
+      console.table('source', req.agenda)
+      console.table('target', req.body.agenda)
       return res.json({
         status: 200,
         message: 'Data saved'

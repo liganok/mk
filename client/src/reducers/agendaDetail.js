@@ -15,7 +15,8 @@ const defaultState = {
     duration: 0,
     sequence: 0,
     subItems: [],
-  }
+  },
+  delArr:[]
 };
 
 function changeAgenda(sourceAgenda, id, key, value) {
@@ -73,12 +74,14 @@ function addAgenda(sourceAgenda, id) {
 }
 
 function removeAgenda(sourceAgenda, id) {
+  let delArr=[]
   let targetAgenda = sourceAgenda;
   let index = targetAgenda.findIndex(item => {
     return item.id === id;
   });
 
   if (index !== -1) {
+    delArr.push(targetAgenda[index])
     targetAgenda.splice(index, 1);
   } else {
     targetAgenda.forEach(item => {

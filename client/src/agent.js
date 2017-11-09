@@ -54,8 +54,8 @@ const Agenda = {
   update: agenda => requests.put(`/agenda/${agenda.id}`, {
     agenda: agenda
   }),
-  save: agenda => requests.post('/agenda', {
-    agenda
+  save: (agenda,delArr=[1]) => requests.post('/agenda', {
+    agenda,delArr
   })
 }
 
